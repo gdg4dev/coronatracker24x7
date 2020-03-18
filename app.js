@@ -2,7 +2,6 @@ const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
 const app = express()
-const handlebars = require('express-handlebars')
 const port = process.env.PORT || 3000
 const viewPath = path.join(__dirname, './templates/views')
 const partialsPath = path.join(__dirname, './templates/partials')
