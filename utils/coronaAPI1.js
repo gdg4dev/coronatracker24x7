@@ -27,10 +27,10 @@ const convertDataIntoJsonAPI = (d) => {
             .fromFile(csvFilePath)
             .then((jsonObj) => {
                 d(jsonObj)
-                // fs.unlink(csvFilePath, (err) => {
-                //     if (err) throw err;
-                //     console.log('Old data removed successfully!');
-                // })
+                fs.unlink(csvFilePath, (err) => {
+                    if (err) throw err;
+                    console.log('Old data removed successfully!');
+                })
             })
     })
 }
