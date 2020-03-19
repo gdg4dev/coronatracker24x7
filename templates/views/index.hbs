@@ -25,9 +25,15 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body>jj
 
+    <script>console.log({{ api2 }})</script>
+    mm
     {{> navbar}}
+
+
+
+
     <!-- END nav -->
 
     <div class="hero-wrap js-fullheight">
@@ -55,7 +61,8 @@
         <div class="container parallax-window" data-parallax="scroll" data-img-src="./images/coronavirus-world.png">
             <div class="row justify-content-center mb-5">
                 <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                    <span class="subheading">More than 200,000 Total Cases Reported World-Wide</span>
+                    <span class="subheading">More than {{totalData.totalCases}} Total Cases
+                        Reported World-Wide</span>
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -80,12 +87,12 @@
                         <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
                             <div class="block-18 text-center">
                                 <div class="text">
-                                    <strong class="number" data-number="79927">0</strong>
+                                    <strong class="number" data-number="{{totalData.totalRecovered}}">0</strong>
                                     <span>Total Recovered</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class=" col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
                             <div class="block-18 text-center">
                                 <div class="text">
                                     <strong class="number" data-number="6184">0</strong>

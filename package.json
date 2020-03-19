@@ -16,6 +16,7 @@
     "download-file": "^0.1.5",
     "express": "^4.17.1",
     "hbs": "^4.1.0",
+    "node-cron": "^2.0.3",
     "tabletojson": "^2.0.3"
   }
 }

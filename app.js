@@ -15,9 +15,21 @@ app.set('view engine', 'hbs')
 app.set('views', viewPath)
 app.set('')
 app.get('', (req, res) => {
-    res.render('index', {
-        title: true
+    let finalData
+    let totalData
+    coronaAPI2(async (d) => {
+        let a = await d;
+        let firstArray = a[0]
+
+        // console.log(d)
+        totalData = firstArray.filter(o => { return o.countryName == "Total:"; })[0]
+        console.log(totalData)
+        res.render('index', {
+            title: true,
+            totalData
+        })
     })
+
 })
 
 
