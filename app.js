@@ -45,8 +45,7 @@ app.get('/coronavirusdata/api/v2', async (req, res) => {
         const clientAuthID = req.query.key
         console.log(clientAuthID)
         if (authAPIKeys.includes(clientAuthID)) {
-
-            apiv2((d) => {
+            coronaAPI2((d) => {
                 res.send(d)
             })
         } else {
