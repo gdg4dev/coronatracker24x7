@@ -9,7 +9,7 @@ const url = "https://www.worldometers.info/coronavirus/";
             const json2csvParser = new Parser();
             const csv = json2csvParser.parse(d[0]);
             fs.writeFileSync('./latestCoronaData/apiV2data.csv', csv)
-            console.log(d[0])
+            console.log('apiv2data updated')
         })
 
     })

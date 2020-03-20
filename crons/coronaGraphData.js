@@ -6,7 +6,7 @@ const downloadOptions = {
 };
 const url = "https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/coronavirus_dataset.csv";
 (() => {
-    cron.schedule('* * 6 * *', () => {
+    cron.schedule('*/59 * * * *', () => {
         download(url, downloadOptions, (err) => {
             if (err) {
                 throw err;

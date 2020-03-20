@@ -1,11 +1,11 @@
-const tableScraper = require('tabletojson');
-const getdata = (s) => {
-    tableScraper.Tabletojson.convertUrl('https://www.worldometers.info/coronavirus/', { headings: ['countryName', 'totalCases', 'newCases', 'totalDeaths', 'newDeaths', 'totalRecovered', 'activeCases', 'seriousCases', 'casesPerM'] }, (d) => {
-        s(d)
-    })
+const csv = require('csvtojson')
+const path = require('path')
+let newFilePath = path.join(__dirname, '../latestCoronaData/apiV2data.csv')
+const convertDataIntoJsonAPI = (d) => {
+    csv()
+        .fromFile(newFilePath)
+        .then((jsonObj) => {
+            d(jsonObj)
+        })
 }
-
-// console.log(getdata((s) => {
-//     console.log(s)
-// }))
-module.exports = getdata
+module.exports = convertDataIntoJsonAPI

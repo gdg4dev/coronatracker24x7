@@ -1,3 +1,6 @@
+require('./crons/apiV1Data')
+require('./crons/apiv2Data')
+require('./crons/coronaGraphData')
 const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
