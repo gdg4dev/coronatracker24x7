@@ -12,6 +12,8 @@ const partialsPath = path.join(__dirname, './templates/partials')
 const publicPath = path.join(__dirname, './public')
 const convertDataIntoJsonAPI = require('./utils/coronaAPI1') //API1
 const coronaAPI2 = require('./utils/coronaAPI2')
+const getCountryList = require('./utils/getCountryList')
+const getTotalObj = require('./utils/getTotalObj')
 const authAPIKeys = ['DMDWJ2LHn8hLRT1VfS9bEQqGGLaU1z7K56IDJUiH819wcRFzEk9fHQGTnfefOAYh07Hfwx']
 app.use(express.urlencoded())
 app.use(compression())
@@ -24,30 +26,23 @@ app.set('')
 app.get('', (req, res) => {
     let finalData
     let totalData
+    getCountryList((countryList) => {
+        getTotalObj((d2) => {
+            finalData = countryList
+            finalObj = d2
+            console.log(d2)
+            res.render('index', {
 
-    coronaAPI2(async (d) => {
-
-        let a = await d;
-
-        let countryList = a.map((v) => {
-            return v.countryName
-        })
-        // console.log(d)
-        totalData = a.filter(o => { return o.countryName == "Total:"; })[0]
-
-        console.log(countryList)
-        console.log(totalData)
-        res.render('index', {
-            countryList,
-            title: true,
-            totalData,
-            totalRecovered: totalData.totalRecovered.replace(/,/g, ''),
-            seriousCases: totalData.seriousCases.replace(/,/g, ''),
-            totalDeaths: totalData.totalDeaths.replace(/,/g, ''),
-            activeCases: totalData.activeCases.replace(/,/g, '')
+                countryList,
+                title: true,
+                finalObj,
+                totalRecovered: finalObj.totalRecovered.replace(/,/g, ''),
+                seriousCases: finalObj.seriousCases.replace(/,/g, ''),
+                totalDeaths: finalObj.totalDeaths.replace(/,/g, ''),
+                activeCases: finalObj.activeCases.replace(/,/g, '')
+            })
         })
     })
-
 })
 
 
