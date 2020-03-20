@@ -10,7 +10,9 @@ const publicPath = path.join(__dirname, './public')
 const convertDataIntoJsonAPI = require('./utils/coronaAPI1') //API1
 const coronaAPI2 = require('./utils/coronaAPI2')
 const authAPIKeys = ['DMDWJ2LHn8hLRT1VfS9bEQqGGLaU1z7K56IDJUiH819wcRFzEk9fHQGTnfefOAYh07Hfwx']
+app.use(express.urlencoded())
 app.use(compression())
+app.use(express.json())
 app.use(express.static(publicPath))
 hbs.registerPartials(partialsPath)
 app.set('view engine', 'hbs')
