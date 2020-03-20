@@ -26,10 +26,9 @@
 
 </head>
 
-<body>jj
-
-    <script>console.log({{ api2 }})</script>
-    mm
+<body>
+    <div id="progressbar"></div>
+    <div id="scrollpath"></div>
     {{> navbar}}
 
 
@@ -785,7 +784,14 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
-
+    <script>
+        let progress = document.getElementById('progressbar')
+        let totalHeight = document.body.scrollHeight - window.innerHeight
+        window.onscroll = () => {
+            let progressHeight = (window.pageYOffset / totalHeight) * 100
+            progress.style.height = progressHeight + '%'
+        }
+    </script>
 </body>
 
 </html>

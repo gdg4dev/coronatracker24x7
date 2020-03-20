@@ -6,7 +6,7 @@ const downloadOptions = {
 };
 const url = "https://static.dwcdn.net/data/NcpLC.csv";
 (() => {
-    cron.schedule('*/59 * * * *', () => {
+    cron.schedule('0 */45 * * * *', () => {
         download(url, downloadOptions, (err) => {
             if (err) {
                 throw err;
