@@ -28,12 +28,12 @@ app.get('', (req, res) => {
     coronaAPI2(async (d) => {
 
         let a = await d;
-        let firstArray = a[0]
-        let countryList = firstArray.map((v) => {
+
+        let countryList = a.map((v) => {
             return v.countryName
         })
         // console.log(d)
-        totalData = firstArray.filter(o => { return o.countryName == "Total:"; })[0]
+        totalData = a.filter(o => { return o.countryName == "Total:"; })[0]
 
         console.log(countryList)
         console.log(totalData)
