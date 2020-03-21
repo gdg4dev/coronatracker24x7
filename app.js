@@ -1,7 +1,7 @@
 require('./crons/apiV1Data')
 require('./crons/apiv2Data')
 require('./crons/coronaGraphData')
-require('./crons/rss')
+require('./crons/rss2')
 const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
@@ -25,6 +25,8 @@ app.use(express.static(publicPath))
 hbs.registerPartials(partialsPath)
 app.set('view engine', 'hbs')
 app.set('views', viewPath)
+// app.set('json spaces', 2);
+app.use(express.json());
 // app.set('')
 app.get('', (req, res) => {
     let finalData
@@ -50,7 +52,6 @@ app.get('/track', (req, res) => {
     if (req.query.country) {
         res.send(req.query.country)
     }
-
 })
 // API ENDPOINTS
 app.get('/coronavirusdata/api/v1', (req, res) => {
@@ -90,7 +91,16 @@ app.get('/coronavirusdata/api/v2', async (req, res) => {
 app.get('/corona/rss/type/json', (req, res) => {
     l = parseInt(req.query.limit) || 1
     sortedRSS(l, (a) => {
-        res.send(a)
+        res.setHeader('Content-Type', 'application/json');
+        res.send(a);
+    })
+})
+
+app.post('/corona/rss/type/json', (req, res) => {
+    l = parseInt(req.query.limit) || 1
+    sortedRSS(l, (a) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(a);
     })
 })
 

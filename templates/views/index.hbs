@@ -133,83 +133,8 @@
     </section>
 
     <section class="ftco-section services-section bg-light">
-        <div class="container">
-
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="ftco-section ftco-no-pt ftc-no-pb">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 py-5">
-                    <img src="images/undraw_podcast_q6p7.svg" class="img-fluid" alt="">
-                    <div class="heading-section ftco-animate mt-5">
-                        <h2 class="mb-4">Our Main Services</h2>
-                        <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                            unorthographic. A
-                            small river named Duden flows by their place and supplies it with the necessary regelialia.
-                            It is a
-                            paradisematic country.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 py-5">
-                    <div class="row">
-                        <div class="col-md-6 ftco-animate">
-                            <div class="media block-6 services border text-center">
-                                <div class="icon d-flex align-items-center justify-content-center">
-                                    <span class="flaticon-cloud-computing"></span>
-                                </div>
-                                <div class="mt-3 media-body media-body-2">
-                                    <h3 class="heading">Cloud VPS</h3>
-                                    <p>Even the all-powerful Pointing has no control about the blind texts</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 ftco-animate">
-                            <div class="media block-6 services border text-center">
-                                <div class="icon d-flex align-items-center justify-content-center">
-                                    <span class="flaticon-cloud"></span>
-                                </div>
-                                <div class="mt-3 media-body media-body-2">
-                                    <h3 class="heading">Share</h3>
-                                    <p>Even the all-powerful Pointing has no control about the blind texts</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 ftco-animate">
-                            <div class="media block-6 services border text-center">
-                                <div class="icon d-flex align-items-center justify-content-center">
-                                    <span class="flaticon-server"></span>
-                                </div>
-                                <div class="mt-3 media-body media-body-2">
-                                    <h3 class="heading">VPS</h3>
-                                    <p>Even the all-powerful Pointing has no control about the blind texts</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 ftco-animate">
-                            <div class="media block-6 services border text-center">
-                                <div class="icon d-flex align-items-center justify-content-center">
-                                    <span class="flaticon-database"></span>
-                                </div>
-                                <div class="mt-3 media-body media-body-2">
-                                    <h3 class="heading">Dedicated</h3>
-                                    <p>Even the all-powerful Pointing has no control about the blind texts</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="container-fluid" id="cards-container">
+            <div class="row d-flex" id="cdeck"></div>
         </div>
     </section>
 
@@ -715,8 +640,6 @@
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
     <script>
-
-
         window.onload = () => {
             let progress = document.getElementById('progressbar')
             let totalHeight = document.body.scrollHeight - window.innerHeight
@@ -724,6 +647,34 @@
                 let progressHeight = (window.pageYOffset / totalHeight) * 100
                 progress.style.height = progressHeight + '%'
             }
+        }
+    </script>
+    <script>
+        function handleErrors(request) {
+            if (!request.ok) {
+                throw Error(request.status)
+            }
+            return request
+        }
+        window.onload = () => {
+            url = "/corona/rss/type/json?limit=8"
+            fetch(url)
+                .then(handleErrors)
+                .then(function (response) {
+                    var responseJson = response.json()
+                    return responseJson
+                })
+                .then(function (data) {
+
+                    console.log(data)
+                    data.forEach((value, index) => {
+                        html2 = $("<div class='card col-lg-3 col-md-6' style='width: 18rem;'>").append($("<img class='card-img-top cimg' src=" + value.urlToImage + " alt='Card image cap'><div class='card-body'><small>Published: " + value.publishedAt + "</small><h5 class='card-title'>" + value.title + "</h5><p class='card-text'>" + value.description + "</p><a href='#' class='btn btn-primary'>Read More..</a>"));
+
+                        $("#cdeck").append(html2);
+                    }
+                    )
+
+                })
         }
 
     </script>
