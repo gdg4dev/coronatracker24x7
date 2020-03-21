@@ -15,6 +15,7 @@ const convertDataIntoJsonAPI = require('./utils/coronaAPI1') //API1
 const coronaAPI2 = require('./utils/coronaAPI2')
 const getCountryList = require('./utils/getCountryList')
 const rss = require('./utils/rss')
+const sortedRSS = require('./utils/sortRawRssData')
 const getTotalObj = require('./utils/getTotalObj')
 const authAPIKeys = ['DMDWJ2LHn8hLRT1VfS9bEQqGGLaU1z7K56IDJUiH819wcRFzEk9fHQGTnfefOAYh07Hfwx']
 app.use(express.urlencoded())
@@ -88,7 +89,7 @@ app.get('/coronavirusdata/api/v2', async (req, res) => {
 })
 app.get('/corona/rss/type/json', (req, res) => {
     l = parseInt(req.query.limit) || 1
-    rss(l, (a) => {
+    sortedRSS(l, (a) => {
         res.send(a)
     })
 })
