@@ -108,20 +108,23 @@
 
     <section class="ftco-domain">
         <div class="container">
-            <div class="row d-flex align-items-center">
+            <div class="row d-flex align-items-center horizontalCenter">
+                <h4 class="mb-3" style="margin-top: 5%;"><span>Choose Your Country And Click On Track Button <br>To See
+                        The Live Updated Numbers
+                    </span> </h4>
+                <div class="col-lg-12 p-5 ftco-animate horizontalCenter" style="    padding-top: 2% !important;">
 
-                <div class="col-lg-12 p-5 ftco-animate">
-                    <form action="#" class="domain-form d-flex mb-3">
-                        <div class="form-group domain-select d-flex">
-                            <div class="select-wrap">
+                    <form action="/track" class="domain-form d-flex mb-3 horizontalCenter">
+                        <div class="form-group domain-select d-flex col-6 text-center">
+                            <div class="select-wrap w-100">
                                 <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                <select name="" id="" class="form-control">
+                                <select name="country" id="" class="form-control">
                                     {{#each countryList}}
                                     <option value="{{this}}">{{this}}</option>
                                     {{/each}}
                                 </select>
                             </div>
-                            <input type="submit" class="search-domain btn btn-primary text-center" value="Search">
+                            <input type="submit" class="search-domain btn btn-primary text-center" value="Track">
                         </div>
                     </form>
                 </div>
@@ -130,91 +133,9 @@
     </section>
 
     <section class="ftco-section services-section bg-light">
-        <div class="container">
-            <div class="row justify-content-center mb-5 pb-3">
-                <div class="col-md-7 text-center heading-section ftco-animate">
-                    <h2 class="mb-4">Why Choose Us</h2>
-                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                        unorthographic.</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services d-flex align-items-center">
-                        <div class="icon d-flex align-items-center justify-content-center order-md-last">
-                            <span class="flaticon-cloud"></span>
-                        </div>
-                        <div class="media-body pl-4 pl-md-0 pr-md-4 text-md-right">
-                            <h3 class="heading">Super Fast Server</h3>
-                            <p class="mb-0">Even the all-powerful Pointing has no control about the blind texts it is an
-                                almost
-                                unorthographic.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services d-flex align-items-center">
-                        <div class="icon d-flex align-items-center justify-content-center">
-                            <span class="flaticon-server"></span>
-                        </div>
-                        <div class="media-body pl-4">
-                            <h3 class="heading">Daily Backups</h3>
-                            <p class="mb-0">Even the all-powerful Pointing has no control about the blind texts it is an
-                                almost
-                                unorthographic.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services d-flex align-items-center">
-                        <div class="icon d-flex align-items-center justify-content-center order-md-last">
-                            <span class="flaticon-customer-service"></span>
-                        </div>
-                        <div class="media-body pl-4 pl-md-0 pr-md-4 text-md-right">
-                            <h3 class="heading">Technical Services</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                                unorthographic.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services d-flex align-items-center">
-                        <div class="icon d-flex align-items-center justify-content-center">
-                            <span class="flaticon-life-insurance"></span>
-                        </div>
-                        <div class="media-body pl-4">
-                            <h3 class="heading">Secure and Reliable</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                                unorthographic.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services d-flex align-items-center">
-                        <div class="icon d-flex align-items-center justify-content-center order-md-last">
-                            <span class="flaticon-cloud-computing"></span>
-                        </div>
-                        <div class="media-body pl-4 pl-md-0 pr-md-4 text-md-right">
-                            <h3 class="heading">DNS Control</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                                unorthographic.</p>
-                        </div>s
-                    </div>
-                </div>
-                <div class="col-md-6 d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services d-flex align-items-center">
-                        <div class="icon d-flex align-items-center justify-content-center">
-                            <span class="flaticon-settings"></span>
-                        </div>
-                        <div class="media-body pl-4">
-                            <h3 class="heading">24/7 Support</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                                unorthographic.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a class="twitter-timeline" href="https://twitter.com/WHO?ref_src=twsrc%5Etfw" data-tweet-limit="1">Tweets by
+            WHO</a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </section>
 
     <section class="ftco-section ftco-no-pt ftc-no-pb">
@@ -785,12 +706,17 @@
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
     <script>
-        let progress = document.getElementById('progressbar')
-        let totalHeight = document.body.scrollHeight - window.innerHeight
-        window.onscroll = () => {
-            let progressHeight = (window.pageYOffset / totalHeight) * 100
-            progress.style.height = progressHeight + '%'
+
+
+        window.onload = () => {
+            let progress = document.getElementById('progressbar')
+            let totalHeight = document.body.scrollHeight - window.innerHeight
+            window.onscroll = () => {
+                let progressHeight = (window.pageYOffset / totalHeight) * 100
+                progress.style.height = progressHeight + '%'
+            }
         }
+
     </script>
 </body>
 

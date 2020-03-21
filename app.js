@@ -1,6 +1,7 @@
 require('./crons/apiV1Data')
 require('./crons/apiv2Data')
 require('./crons/coronaGraphData')
+require('./crons/rss')
 const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
@@ -22,7 +23,7 @@ app.use(express.static(publicPath))
 hbs.registerPartials(partialsPath)
 app.set('view engine', 'hbs')
 app.set('views', viewPath)
-app.set('')
+// app.set('')
 app.get('', (req, res) => {
     let finalData
     let totalData
@@ -45,7 +46,12 @@ app.get('', (req, res) => {
     })
 })
 
+app.get('/track', (req, res) => {
+    if (req.query.country) {
+        res.send(req.query.country)
+    }
 
+})
 // API ENDPOINTS
 app.get('/coronavirusdata/api/v1', (req, res) => {
     try {
@@ -80,6 +86,10 @@ app.get('/coronavirusdata/api/v2', async (req, res) => {
     } catch (e) {
         res.status(500).send({ 'error': 'Some went wrong!' })
     }
+})
+app.get('/corona/rss/type/json', (req, res) => {
+    console.log(req.headers.host)
+    res.send(req.headers.host)
 })
 
 //DEFAULT 404

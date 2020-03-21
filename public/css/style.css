@@ -10090,3 +10090,11 @@ border-radius: 25px;
   background: linear-gradient(to top,#008aff,#00ffe7);
   filter: blur(24px);
 }
+
+.horizontalCenter{
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+}
