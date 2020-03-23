@@ -1,14 +1,11 @@
 const cron = require("node-cron");
 const stats = require("./fetchData");
-console.log("Scraper scheduled.");
-stats.fetchAllData();
-//Fetch data three minutes.
-console.log('scraper connected')
-cron.schedule("*/1 * * * *", () => {
+console.log("Scraper scheduled.");//Fetch data three minutes.
+cron.schedule("*/30 * * * *", () => {
   try {
     console.log("Fetching data.");
     stats.fetchAllData();
-  } catch(error) {
+  } catch (error) {
     console.error(error)
   }
 });

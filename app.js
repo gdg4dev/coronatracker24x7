@@ -15,6 +15,12 @@ const publicPath = path.join(__dirname, './public')
 const convertDataIntoJsonAPI = require('./utils/coronaAPI1') //API1
 const coronaAPI2 = require('./utils/coronaAPI2')
 const getCountryList = require('./utils/getCountryList')
+const coronaAustralia = require('./utils/coronaAustralia')
+const coronaUSA = require('./utils/coronaUSA')
+const coronaEurope = require('./utils/coronaEurope')
+const coronaCanada = require('./utils/coronaCanada')
+const coronaChina = require('./utils/coronaChina')
+const coronaLatinAmerica = require('./utils/coronaLatinAmerica')
 const rss = require('./utils/rss')
 const sortedRSS = require('./utils/sortRawRssData')
 const getTotalObj = require('./utils/getTotalObj')
@@ -55,28 +61,28 @@ app.get('/tracker', (req, res) => {
         // console.log(country)
         getCountryList((country) => {
             coronaAPI2((data) => {
-            if(req.query.country){
-                if (country.includes(req.query.country.charAt(0).toUpperCase() + req.query.country.slice(1))) {
-                    let countryExists = true
-                    res.render('tracker', {
-                        data,
-                        isRequestingCountry,
-                        countryExists
-                    })
+                if (req.query.country) {
+                    if (country.includes(req.query.country.charAt(0).toUpperCase() + req.query.country.slice(1))) {
+                        let countryExists = true
+                        res.render('tracker', {
+                            data,
+                            isRequestingCountry,
+                            countryExists
+                        })
+                    } else {
+                        let countryExists = false
+                        res.render('tracker', {
+                            data,
+                            isRequestingCountry,
+                            countryExists
+                        })
+                    }
                 } else {
-                    let countryExists = false
                     res.render('tracker', {
                         data,
-                        isRequestingCountry,
-                        countryExists
+                        isRequestingCountry
                     })
                 }
-            } else{
-                res.render('tracker', {
-                    data,
-                    isRequestingCountry
-                })
-            }
 
             })
         })
@@ -136,21 +142,134 @@ app.post('/corona/rss/type/json', (req, res) => {
     })
 })
 
-app.get('/symptoms',(req,res)=>{
+app.get('/symptoms', (req, res) => {
     res.render('symptoms')
 })
 
-app.get('/prevention',(req,res)=>{
+app.get('/prevention', (req, res) => {
     res.render('prevention')
 })
 
-app.get('/wiki',(req,res)=>{
+app.get('/wiki', (req, res) => {
     res.render('wiki')
 })
 
-app.get('/news',(req,res)=>{
+app.get('/news', (req, res) => {
     res.render('news')
 })
+
+
+app.get('/corona/usa', (req, res) => {
+    try {
+        const clientAuthID = req.query.key
+        console.log(clientAuthID)
+        if (authAPIKeys.includes(clientAuthID)) {
+
+            coronaUSA((APIData, err) => {
+                res.send(APIData)
+            })
+        } else {
+            console.log('Invalid API Attempt')
+            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+        }
+    } catch (e) {
+        res.status(500).send({ 'error': 'Some went wrong!' })
+    }
+})
+
+app.get('/corona/canada', (req, res) => {
+    try {
+        const clientAuthID = req.query.key
+        console.log(clientAuthID)
+        if (authAPIKeys.includes(clientAuthID)) {
+
+            coronaCanada((APIData, err) => {
+                res.send(APIData)
+            })
+        } else {
+            console.log('Invalid API Attempt')
+            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+        }
+    } catch (e) {
+        res.status(500).send({ 'error': 'Some went wrong!' })
+    }
+})
+
+app.get('/corona/china', (req, res) => {
+    try {
+        const clientAuthID = req.query.key
+        console.log(clientAuthID)
+        if (authAPIKeys.includes(clientAuthID)) {
+
+            coronaChina((APIData, err) => {
+                res.send(APIData)
+            })
+        } else {
+            console.log('Invalid API Attempt')
+            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+        }
+    } catch (e) {
+        res.status(500).send({ 'error': 'Some went wrong!' })
+    }
+})
+
+app.get('/corona/europe', (req, res) => {
+    try {
+        const clientAuthID = req.query.key
+        console.log(clientAuthID)
+        if (authAPIKeys.includes(clientAuthID)) {
+
+            coronaEurope((APIData, err) => {
+                res.send(APIData)
+            })
+        } else {
+            console.log('Invalid API Attempt')
+            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+        }
+    } catch (e) {
+        res.status(500).send({ 'error': 'Some went wrong!' })
+    }
+})
+
+app.get('/corona/latinamerica', (req, res) => {
+    try {
+        const clientAuthID = req.query.key
+        console.log(clientAuthID)
+        if (authAPIKeys.includes(clientAuthID)) {
+
+            coronaLatinAmerica((APIData, err) => {
+                res.send(APIData)
+            })
+        } else {
+            console.log('Invalid API Attempt')
+            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+        }
+    } catch (e) {
+        res.status(500).send({ 'error': 'Some went wrong!' })
+    }
+})
+
+app.get('/corona/australia', (req, res) => {
+    try {
+        const clientAuthID = req.query.key
+        console.log(clientAuthID)
+        if (authAPIKeys.includes(clientAuthID)) {
+
+            coronaAustralia((APIData, err) => {
+                res.send(APIData)
+            })
+        } else {
+            console.log('Invalid API Attempt')
+            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+        }
+    } catch (e) {
+        res.status(500).send({ 'error': 'Some went wrong!' })
+    }
+})
+
+
+
+
 
 //DEFAULT 404
 app.get('*', (req, res) => {
