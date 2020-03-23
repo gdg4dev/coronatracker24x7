@@ -48,9 +48,19 @@ app.get('', (req, res) => {
     })
 })
 
-app.get('/track', (req, res) => {
-    if (req.query.country) {
-        res.send(req.query.country)
+app.get('/tracker', (req, res) => {
+    try {
+        let isRequestingCountry = req.query.country || false
+        // console.log(country)
+        coronaAPI2((data) => {
+            res.render('tracker', {
+                data,
+                isRequestingCountry
+            })
+        })
+
+    } catch {
+        res.send('We\'ve encountered an error')
     }
 })
 // API ENDPOINTS
@@ -106,7 +116,7 @@ app.post('/corona/rss/type/json', (req, res) => {
 
 //DEFAULT 404
 app.get('*', (req, res) => {
-    res.status(404).redirect('404.html')
+    res.status(404).render('404')
 })
 
 //START SERVER
