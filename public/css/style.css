@@ -10145,4 +10145,40 @@ border-radius: 25px;
 .card {
   border: 0ch !important;
   border-radius: 0% !important;
+  border: 25px;
+  background: #fffff
+}
+.cimg{
+      width: 100% !important;
+    height: 15vw !important;
+    object-fit: cover !important;
+}
+@media only screen and (max-width: 750px) {
+.cimg{
+      width: 100% !important;
+    height: 35vw !important;
+    object-fit: cover !important;
+}
+}
+
+.cccd{
+     min-height: 87vh;
+    height: 87vh;
+    max-height: 87vh;
+}
+
+.card-content{
+      height: 100% !important;
+}
+
+.bttn{
+ position: absolute !important;
+bottom: 0!important;
+margin-bottom: 0!important;
+bottom: 5vh !important;
+}
+
+#cdcdcdcdc{
+  background-color:#fff;
+  border-radius: 25px
 }
