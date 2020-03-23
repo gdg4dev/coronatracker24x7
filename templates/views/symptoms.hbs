@@ -31,57 +31,6 @@
     <div id="scrollpath"></div>
     {{> navbar}}
 
-    {{#if isRequestingCountry}}
-    {{#if countryExists}}
-    <h1>YES</h1>
-    {{/if}}
-    <h1>NO</h1>
-    {{/if}}
-    <div class="table-responsive">
-        <table class="table m-1" id="header-fixed">
-            <thead>
-                <tr>
-                    <th>Country</th>
-                    <th>Total Cases</th>
-                    <th>Active Cases</th>
-                    <th>New Cases</th>
-                    <th>New Deaths</th>
-                    <th>Total Deaths</th>
-                    <th>Total Recovered </th>
-                    <th>Serious Cases</th>
-                    <th>Cases/Million</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each data}}
-                <tr>
-                    <td>{{this.countryName}}</td>
-                    <td>{{this.totalCases}}</td>
-                    <td>{{this.activeCases}}</td>
-                    <td>{{this.newCases}}</td>
-                    <td>{{this.newDeaths}}</td>
-                    <td>{{this.totalDeaths}}</td>
-                    <td>{{this.totalRecovered}} </td>
-                    <td>{{this.seriousCases}}</td>
-                    <td>{{this.casesPerM}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-
-
-        </table>
-
-    </div>
-
-
-    <!-- END nav -->
-
-
-    <section>
-
-    </section>
-
-
     <footer class="ftco-footer ftco-bg-dark ftco-section">
         <div class="container">
             <div class="row">
