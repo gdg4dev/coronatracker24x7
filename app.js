@@ -32,7 +32,7 @@ app.use(express.static(publicPath))
 hbs.registerPartials(partialsPath)
 app.set('view engine', 'hbs')
 app.set('views', viewPath)
-// app.set('json spaces', 2);
+    // app.set('json spaces', 2);
 app.use(express.json());
 // app.set('')
 app.get('', (req, res) => {
@@ -56,42 +56,86 @@ app.get('', (req, res) => {
 })
 
 app.get('/tracker', (req, res) => {
-    try {
-        let isRequestingCountry = req.query.country || false
-        // console.log(country)
-        getCountryList((country) => {
-            coronaAPI2((data) => {
-                if (req.query.country) {
-                    if (country.includes(req.query.country.charAt(0).toUpperCase() + req.query.country.slice(1))) {
-                        let countryExists = true
-                        res.render('tracker', {
-                            data,
-                            isRequestingCountry,
-                            countryExists
+        try {
+            let isRequestingCountry = req.query.country || false
+                // console.log(country)
+            getCountryList((country) => {
+                coronaAPI2((data) => {
+                    coronaAustralia((auData, err) => {
+                        coronaCanada((caData, err) => {
+                            coronaChina((chData, err) => {
+                                coronaEurope((euData, err) => {
+                                    coronaLatinAmerica((laData, err) => {
+                                        coronaUSA((usData, err) => {
+                                            let usRegions = usData.regions
+                                            let usRegionsTotal = usData.regionTotal
+                                            let laRegions = laData.regions
+                                            let laRegionsTotal = laData.regionTotal
+                                            let euRegions = usData.regions
+                                            let euRegionsTotal = usData.regionTotal
+                                            let chRegions = laData.regions
+                                            let chRegionsTotal = laData.regionTotal
+                                            let caRegions = usData.regions
+                                            let caRegionsTotal = usData.regionTotal
+                                            let auRegions = laData.regions
+                                            let auRegionsTotal = laData.regionTotal
+                                            if (req.query.country) {
+                                                if (country.includes(req.query.country.charAt(0).toUpperCase() + req.query.country.slice(1))) {
+                                                    let countryExists = true
+                                                    res.render('tracker', {
+                                                        data,
+                                                        isRequestingCountry,
+                                                        countryExists,
+                                                        auData,
+                                                        euData,
+                                                        chData,
+                                                        caData,
+                                                        laData,
+                                                        usRegions,
+                                                        usRegionsTotal
+                                                    })
+                                                } else {
+                                                    let countryExists = false
+                                                    res.render('tracker', {
+                                                        data,
+                                                        isRequestingCountry,
+                                                        countryExists,
+                                                        auData,
+                                                        euData,
+                                                        chData,
+                                                        caData,
+                                                        laData,
+                                                        usRegions,
+                                                        usRegionsTotal
+                                                    })
+                                                }
+                                            } else {
+                                                res.render('tracker', {
+                                                    data,
+                                                    isRequestingCountry,
+                                                    auData,
+                                                    euData,
+                                                    chData,
+                                                    caData,
+                                                    laData,
+                                                    usRegions,
+                                                    usRegionsTotal
+                                                })
+                                            }
+                                        })
+                                    })
+                                })
+                            })
                         })
-                    } else {
-                        let countryExists = false
-                        res.render('tracker', {
-                            data,
-                            isRequestingCountry,
-                            countryExists
-                        })
-                    }
-                } else {
-                    res.render('tracker', {
-                        data,
-                        isRequestingCountry
                     })
-                }
-
+                })
             })
-        })
 
-    } catch {
-        res.send('We\'ve encountered an error')
-    }
-})
-// API ENDPOINTS
+        } catch {
+            res.send('We\'ve encountered an error')
+        }
+    })
+    // API ENDPOINTS
 app.get('/coronavirusdata/api/v1', (req, res) => {
     try {
         const clientAuthID = req.query.key
@@ -110,7 +154,7 @@ app.get('/coronavirusdata/api/v1', (req, res) => {
     }
 })
 
-app.get('/coronavirusdata/api/v2', async (req, res) => {
+app.get('/coronavirusdata/api/v2', async(req, res) => {
     try {
         const clientAuthID = req.query.key
         console.log(clientAuthID)
