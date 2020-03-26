@@ -22,7 +22,7 @@ const coronaCanada = require('./utils/coronaCanada')
 const coronaChina = require('./utils/coronaChina')
 const coronaLatinAmerica = require('./utils/coronaLatinAmerica')
 const coronaAfrica = require('./utils/coronaAfrica')
-const graphs = require('./utils/graph')
+    // const graphs = require('./utils/graph')
 const rss = require('./utils/rss')
 const sortedRSS = require('./utils/sortRawRssData')
 const getTotalObj = require('./utils/getTotalObj')
@@ -215,9 +215,7 @@ try {
     })
 
     app.get('/graphs', (req, res) => {
-        res.render('graphs', {
-            graphs
-        })
+        res.render('graphs')
     })
     app.get('/symptoms', (req, res) => {
         res.render('symptoms')

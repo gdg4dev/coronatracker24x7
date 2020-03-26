@@ -1,18 +1,47 @@
-<iframe src="https://datahub.io/core/covid-19/view/0" width="100%" height="475px" frameborder="0"></iframe>
-<iframe src="https://datahub.io/core/covid-19/view/1" width="100%" height="475px" frameborder="0"></iframe>
-<style>
-    .datahub-meta {
-        display: none;
-    }
-</style>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>
+<!DOCTYPE html>
+<html>
 
-    $("document").ready(() => {
-        let dhg = $(".datahub-meta")
-        for (i = 0; i < dhg.length; i++) {
-            dhg[i].style.setProperty("background-color", "red", "important");
-        }
+<head>
+    <meta charset="UTF-8" />
+    <title>COVID-19 DataViz: Dashboard</title>
+    <script src="./maps/deps/amcharts4/core.js"></script>
+    <script src="./maps/deps/amcharts4/charts.js"></script>
+    <script src="./maps/deps/amcharts4/maps.js"></script>
+    <script src="./maps/deps/amcharts4/themes/dark.js"></script>
+    <script src="./maps/deps/amcharts4/themes/animated.js"></script>
+    <script src="./maps/deps/amcharts4-geodata/worldLow.js"></script>
+    <script src="./maps/deps/amcharts4-geodata/data/countries2.js"></script>
+    <script src="./maps/deps/jquery/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" media="all" href="./maps/deps/datatables/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" media="all" href="./maps/deps/datatables/css/select.dataTables.min.css" />
+    <script src="./maps/deps/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="./maps/deps/datatables/js/dataTables.select.min.js"></script>
 
-    })
-</script>
+    <!-- Data  -->
+    <script src="./maps/data/js/world_timeline.js"></script>
+    <script src="./maps/data/js/total_timeline.js"></script>
+    <link rel="stylesheet" media="all" href="./maps/main/dark.css" />
+    <script src="./maps/main/app.js"></script>
+</head>
+
+<body>
+    <div class="flexbox">
+        <div id="chartdiv"></div>
+        <div id="list">
+            <table id="areas" class="compact hover order-column row-border">
+                <thead>
+                    <tr>
+                        <th>Country/State</th>
+                        <th>Confirmed</th>
+                        <th>Deaths</th>
+                        <th>Recovered</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
