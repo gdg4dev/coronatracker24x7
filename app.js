@@ -2,7 +2,7 @@ require('./crons/apiV1Data')
 require('./crons/apiv2Data')
 require('./crons/coronaGraphData')
 require('./crons/rss2')
-    // require('./covid-dash-api/scraper')
+require('./scraper')
 const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
@@ -21,6 +21,7 @@ const coronaEurope = require('./utils/coronaEurope')
 const coronaCanada = require('./utils/coronaCanada')
 const coronaChina = require('./utils/coronaChina')
 const coronaLatinAmerica = require('./utils/coronaLatinAmerica')
+const coronaAfrica = require('./utils/coronaAfrica')
 const rss = require('./utils/rss')
 const sortedRSS = require('./utils/sortRawRssData')
 const getTotalObj = require('./utils/getTotalObj')
@@ -35,93 +36,120 @@ app.set('views', viewPath)
     // app.set('json spaces', 2);
 app.use(express.json());
 // app.set('')
-app.get('', (req, res) => {
-    let finalData
-    getCountryList((countryList) => {
-        getTotalObj((d2) => {
-            finalData = countryList
-            finalObj = d2
-            console.log(d2)
-            res.render('index', {
-                countryList,
-                title: true,
-                finalObj,
-                totalRecovered: finalObj.totalRecovered.replace(/,/g, ''),
-                seriousCases: finalObj.seriousCases.replace(/,/g, ''),
-                totalDeaths: finalObj.totalDeaths.replace(/,/g, ''),
-                activeCases: finalObj.activeCases.replace(/,/g, '')
+try {
+    app.get('', (req, res) => {
+        let finalData
+        getCountryList((countryList) => {
+            getTotalObj((d2) => {
+                finalData = countryList
+                finalObj = d2
+                console.log(d2)
+                res.render('index', {
+                    countryList,
+                    title: true,
+                    finalObj,
+                    totalRecovered: finalObj.totalRecovered.replace(/,/g, ''),
+                    seriousCases: finalObj.seriousCases.replace(/,/g, ''),
+                    totalDeaths: finalObj.totalDeaths.replace(/,/g, ''),
+                    activeCases: finalObj.activeCases.replace(/,/g, '')
+                })
             })
         })
     })
-})
 
-app.get('/tracker', (req, res) => {
-        try {
-            let isRequestingCountry = req.query.country || false
-                // console.log(country)
-            getCountryList((country) => {
-                coronaAPI2((data) => {
-                    coronaAustralia((auData, err) => {
-                        coronaCanada((caData, err) => {
-                            coronaChina((chData, err) => {
-                                coronaEurope((euData, err) => {
-                                    coronaLatinAmerica((laData, err) => {
-                                        coronaUSA((usData, err) => {
-                                            let usRegions = usData.regions
-                                            let usRegionsTotal = usData.regionTotal
-                                            let laRegions = laData.regions
-                                            let laRegionsTotal = laData.regionTotal
-                                            let euRegions = usData.regions
-                                            let euRegionsTotal = usData.regionTotal
-                                            let chRegions = laData.regions
-                                            let chRegionsTotal = laData.regionTotal
-                                            let caRegions = usData.regions
-                                            let caRegionsTotal = usData.regionTotal
-                                            let auRegions = laData.regions
-                                            let auRegionsTotal = laData.regionTotal
-                                            if (req.query.country) {
-                                                if (country.includes(req.query.country.charAt(0).toUpperCase() + req.query.country.slice(1))) {
-                                                    let countryExists = true
-                                                    res.render('tracker', {
-                                                        data,
-                                                        isRequestingCountry,
-                                                        countryExists,
-                                                        auData,
-                                                        euData,
-                                                        chData,
-                                                        caData,
-                                                        laData,
-                                                        usRegions,
-                                                        usRegionsTotal
-                                                    })
-                                                } else {
-                                                    let countryExists = false
-                                                    res.render('tracker', {
-                                                        data,
-                                                        isRequestingCountry,
-                                                        countryExists,
-                                                        auData,
-                                                        euData,
-                                                        chData,
-                                                        caData,
-                                                        laData,
-                                                        usRegions,
-                                                        usRegionsTotal
-                                                    })
-                                                }
-                                            } else {
-                                                res.render('tracker', {
-                                                    data,
-                                                    isRequestingCountry,
-                                                    auData,
-                                                    euData,
-                                                    chData,
-                                                    caData,
-                                                    laData,
-                                                    usRegions,
-                                                    usRegionsTotal
+    app.get('/tracker', (req, res) => {
+            try {
+                let isRequestingCountry = req.query.country || false
+                    // console.log(country)
+                getCountryList((country) => {
+                    coronaAPI2((data) => {
+                        coronaAustralia((auData, err) => {
+                            coronaCanada((caData, err) => {
+                                coronaChina((chData, err) => {
+                                    coronaEurope((euData, err) => {
+                                        coronaLatinAmerica((laData, err) => {
+                                            coronaUSA((usData, err) => {
+                                                coronaAfrica((afData, err) => {
+                                                    let usRegions = usData.regions
+                                                    let usRegionsTotal = usData.regionTotal
+                                                    let laRegions = laData.regions
+                                                    let laRegionsTotal = laData.regionTotal
+                                                    let euRegions = euData.regions
+                                                    let euRegionsTotal = euData.regionTotal
+                                                    let chRegions = chData.regions
+                                                    let chRegionsTotal = chData.regionTotal
+                                                    let caRegions = caData.regions
+                                                    let caRegionsTotal = caData.regionTotal
+                                                    let auRegions = auData.regions
+                                                    let auRegionsTotal = auData.regionTotal
+                                                    let afRegions = afData.regions
+                                                    let afRegionsTotal = afData.regionTotal
+                                                    if (req.query.country) {
+                                                        if (country.includes(req.query.country.charAt(0).toUpperCase() + req.query.country.slice(1))) {
+                                                            let countryExists = true
+                                                            res.render('tracker', {
+                                                                data,
+                                                                isRequestingCountry,
+                                                                countryExists,
+                                                                usRegions,
+                                                                usRegionsTotal,
+                                                                laRegions,
+                                                                laRegionsTotal,
+                                                                euRegions,
+                                                                euRegionsTotal,
+                                                                chRegions,
+                                                                chRegionsTotal,
+                                                                caRegions,
+                                                                caRegionsTotal,
+                                                                auRegions,
+                                                                auRegionsTotal,
+                                                                afRegions,
+                                                                afRegionsTotal
+                                                            })
+                                                        } else {
+                                                            let countryExists = false
+                                                            res.render('tracker', {
+                                                                data,
+                                                                isRequestingCountry,
+                                                                countryExists,
+                                                                usRegions,
+                                                                usRegionsTotal,
+                                                                laRegions,
+                                                                laRegionsTotal,
+                                                                euRegions,
+                                                                euRegionsTotal,
+                                                                chRegions,
+                                                                chRegionsTotal,
+                                                                caRegions,
+                                                                caRegionsTotal,
+                                                                auRegions,
+                                                                auRegionsTotal,
+                                                                afRegions,
+                                                                afRegionsTotal
+                                                            })
+                                                        }
+                                                    } else {
+                                                        res.render('tracker', {
+                                                            data,
+                                                            isRequestingCountry,
+                                                            usRegions,
+                                                            usRegionsTotal,
+                                                            laRegions,
+                                                            laRegionsTotal,
+                                                            euRegions,
+                                                            euRegionsTotal,
+                                                            chRegions,
+                                                            chRegionsTotal,
+                                                            caRegions,
+                                                            caRegionsTotal,
+                                                            auRegions,
+                                                            auRegionsTotal,
+                                                            afRegions,
+                                                            afRegionsTotal
+                                                        })
+                                                    }
                                                 })
-                                            }
+                                            })
                                         })
                                     })
                                 })
@@ -129,198 +157,219 @@ app.get('/tracker', (req, res) => {
                         })
                     })
                 })
-            })
 
-        } catch {
-            res.send('We\'ve encountered an error')
+            } catch {
+                res.send('We\'ve encountered an error')
+            }
+        })
+        // API ENDPOINTS
+    app.get('/coronavirusdata/api/v1', (req, res) => {
+        try {
+            const clientAuthID = req.query.key
+            console.log(clientAuthID)
+            if (authAPIKeys.includes(clientAuthID)) {
+
+                convertDataIntoJsonAPI((APIData, err) => {
+                    res.send(APIData)
+                })
+            } else {
+                console.log('Invalid API Attempt')
+                res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+            }
+        } catch (e) {
+            res.status(500).send({ 'error': 'Some went wrong!' })
         }
     })
-    // API ENDPOINTS
-app.get('/coronavirusdata/api/v1', (req, res) => {
-    try {
-        const clientAuthID = req.query.key
-        console.log(clientAuthID)
-        if (authAPIKeys.includes(clientAuthID)) {
 
-            convertDataIntoJsonAPI((APIData, err) => {
-                res.send(APIData)
-            })
-        } else {
-            console.log('Invalid API Attempt')
-            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+    app.get('/coronavirusdata/api/v2', async(req, res) => {
+        try {
+            const clientAuthID = req.query.key
+            console.log(clientAuthID)
+            if (authAPIKeys.includes(clientAuthID)) {
+                coronaAPI2((d) => {
+                    res.send(d)
+                })
+            } else {
+                console.log('Invalid API Attempt')
+                res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+            }
+        } catch (e) {
+            res.status(500).send({ 'error': 'Some went wrong!' })
         }
-    } catch (e) {
-        res.status(500).send({ 'error': 'Some went wrong!' })
-    }
-})
-
-app.get('/coronavirusdata/api/v2', async(req, res) => {
-    try {
-        const clientAuthID = req.query.key
-        console.log(clientAuthID)
-        if (authAPIKeys.includes(clientAuthID)) {
-            coronaAPI2((d) => {
-                res.send(d)
-            })
-        } else {
-            console.log('Invalid API Attempt')
-            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
-        }
-    } catch (e) {
-        res.status(500).send({ 'error': 'Some went wrong!' })
-    }
-})
-app.get('/corona/rss/type/json', (req, res) => {
-    l = parseInt(req.query.limit) || 1
-    sortedRSS(l, (a) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(a);
     })
-})
-
-app.post('/corona/rss/type/json', (req, res) => {
-    l = parseInt(req.query.limit) || 1
-    sortedRSS(l, (a) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(a);
+    app.get('/corona/rss/type/json', (req, res) => {
+        l = parseInt(req.query.limit) || 1
+        sortedRSS(l, (a) => {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(a);
+        })
     })
-})
 
-app.get('/symptoms', (req, res) => {
-    res.render('symptoms')
-})
+    app.post('/corona/rss/type/json', (req, res) => {
+        l = parseInt(req.query.limit) || 1
+        sortedRSS(l, (a) => {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(a);
+        })
+    })
 
-app.get('/prevention', (req, res) => {
-    res.render('prevention')
-})
+    app.get('/symptoms', (req, res) => {
+        res.render('symptoms')
+    })
 
-app.get('/wiki', (req, res) => {
-    res.render('wiki')
-})
+    app.get('/prevention', (req, res) => {
+        res.render('prevention')
+    })
 
-app.get('/news', (req, res) => {
-    res.render('news')
-})
+    app.get('/wiki', (req, res) => {
+        res.render('wiki')
+    })
+
+    app.get('/news', (req, res) => {
+        res.render('news')
+    })
 
 
-app.get('/corona/usa', (req, res) => {
-    try {
-        const clientAuthID = req.query.key
-        console.log(clientAuthID)
-        if (authAPIKeys.includes(clientAuthID)) {
+    app.get('/corona/usa', (req, res) => {
+        try {
+            const clientAuthID = req.query.key
+            console.log(clientAuthID)
+            if (authAPIKeys.includes(clientAuthID)) {
 
-            coronaUSA((APIData, err) => {
-                res.send(APIData)
-            })
-        } else {
-            console.log('Invalid API Attempt')
-            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+                coronaUSA((APIData, err) => {
+                    res.send(APIData)
+                })
+            } else {
+                console.log('Invalid API Attempt')
+                res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+            }
+        } catch (e) {
+            res.status(500).send({ 'error': 'Some went wrong!' })
         }
-    } catch (e) {
-        res.status(500).send({ 'error': 'Some went wrong!' })
-    }
-})
+    })
 
-app.get('/corona/canada', (req, res) => {
-    try {
-        const clientAuthID = req.query.key
-        console.log(clientAuthID)
-        if (authAPIKeys.includes(clientAuthID)) {
+    app.get('/corona/africa', (req, res) => {
+        try {
+            const clientAuthID = req.query.key
+            console.log(clientAuthID)
+            if (authAPIKeys.includes(clientAuthID)) {
 
-            coronaCanada((APIData, err) => {
-                res.send(APIData)
-            })
-        } else {
-            console.log('Invalid API Attempt')
-            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+                coronaAfrica((APIData, err) => {
+                    res.send(APIData)
+                })
+            } else {
+                console.log('Invalid API Attempt')
+                res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+            }
+        } catch (e) {
+            res.status(500).send({ 'error': 'Some went wrong!' })
         }
-    } catch (e) {
-        res.status(500).send({ 'error': 'Some went wrong!' })
-    }
-})
+    })
 
-app.get('/corona/china', (req, res) => {
-    try {
-        const clientAuthID = req.query.key
-        console.log(clientAuthID)
-        if (authAPIKeys.includes(clientAuthID)) {
 
-            coronaChina((APIData, err) => {
-                res.send(APIData)
-            })
-        } else {
-            console.log('Invalid API Attempt')
-            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+    app.get('/corona/canada', (req, res) => {
+        try {
+            const clientAuthID = req.query.key
+            console.log(clientAuthID)
+            if (authAPIKeys.includes(clientAuthID)) {
+
+                coronaCanada((APIData, err) => {
+                    res.send(APIData)
+                })
+            } else {
+                console.log('Invalid API Attempt')
+                res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+            }
+        } catch (e) {
+            res.status(500).send({ 'error': 'Some went wrong!' })
         }
-    } catch (e) {
-        res.status(500).send({ 'error': 'Some went wrong!' })
-    }
-})
+    })
 
-app.get('/corona/europe', (req, res) => {
-    try {
-        const clientAuthID = req.query.key
-        console.log(clientAuthID)
-        if (authAPIKeys.includes(clientAuthID)) {
+    app.get('/corona/china', (req, res) => {
+        try {
+            const clientAuthID = req.query.key
+            console.log(clientAuthID)
+            if (authAPIKeys.includes(clientAuthID)) {
 
-            coronaEurope((APIData, err) => {
-                res.send(APIData)
-            })
-        } else {
-            console.log('Invalid API Attempt')
-            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+                coronaChina((APIData, err) => {
+                    res.send(APIData)
+                })
+            } else {
+                console.log('Invalid API Attempt')
+                res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+            }
+        } catch (e) {
+            res.status(500).send({ 'error': 'Some went wrong!' })
         }
-    } catch (e) {
-        res.status(500).send({ 'error': 'Some went wrong!' })
-    }
-})
+    })
 
-app.get('/corona/latinamerica', (req, res) => {
-    try {
-        const clientAuthID = req.query.key
-        console.log(clientAuthID)
-        if (authAPIKeys.includes(clientAuthID)) {
+    app.get('/corona/europe', (req, res) => {
+        try {
+            const clientAuthID = req.query.key
+            console.log(clientAuthID)
+            if (authAPIKeys.includes(clientAuthID)) {
 
-            coronaLatinAmerica((APIData, err) => {
-                res.send(APIData)
-            })
-        } else {
-            console.log('Invalid API Attempt')
-            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+                coronaEurope((APIData, err) => {
+                    res.send(APIData)
+                })
+            } else {
+                console.log('Invalid API Attempt')
+                res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+            }
+        } catch (e) {
+            res.status(500).send({ 'error': 'Some went wrong!' })
         }
-    } catch (e) {
-        res.status(500).send({ 'error': 'Some went wrong!' })
-    }
-})
+    })
 
-app.get('/corona/australia', (req, res) => {
-    try {
-        const clientAuthID = req.query.key
-        console.log(clientAuthID)
-        if (authAPIKeys.includes(clientAuthID)) {
+    app.get('/corona/latinamerica', (req, res) => {
+        try {
+            const clientAuthID = req.query.key
+            console.log(clientAuthID)
+            if (authAPIKeys.includes(clientAuthID)) {
 
-            coronaAustralia((APIData, err) => {
-                res.send(APIData)
-            })
-        } else {
-            console.log('Invalid API Attempt')
-            res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+                coronaLatinAmerica((APIData, err) => {
+                    res.send(APIData)
+                })
+            } else {
+                console.log('Invalid API Attempt')
+                res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+            }
+        } catch (e) {
+            res.status(500).send({ 'error': 'Some went wrong!' })
         }
-    } catch (e) {
-        res.status(500).send({ 'error': 'Some went wrong!' })
-    }
-})
+    })
+
+    app.get('/corona/australia', (req, res) => {
+        try {
+            const clientAuthID = req.query.key
+            console.log(clientAuthID)
+            if (authAPIKeys.includes(clientAuthID)) {
+
+                coronaAustralia((APIData, err) => {
+                    res.send(APIData)
+                })
+            } else {
+                console.log('Invalid API Attempt')
+                res.status(403).send({ 'error': 'Please Provide Valid API Key' })
+            }
+        } catch (e) {
+            res.status(500).send({ 'error': 'Some went wrong!' })
+        }
+    })
 
 
 
 
 
-//DEFAULT 404
-app.get('*', (req, res) => {
-    res.status(404).render('404')
-})
+    //DEFAULT 404
+    app.get('*', (req, res) => {
+        res.status(404).render('404')
+    })
 
-//START SERVER
-app.listen(port, () => {
-    console.log('Server started successfully')
-})
+    //START SERVER
+    app.listen(port, () => {
+        console.log('Server started successfully')
+    })
+} catch (e) {
+    console.log("Some Error Occurred! Restarting server")
+}
