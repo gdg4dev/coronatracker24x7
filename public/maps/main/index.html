@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>COVID-19 DataViz: Dashboard</title>
 
-    <!-- amCharts includes -->
+<head>
+    <meta charset="UTF-8" />
+    <title>CoronaWatch24x7</title>
+
     <script src="../../deps/amcharts4/core.js"></script>
     <script src="../../deps/amcharts4/charts.js"></script>
     <script src="../../deps/amcharts4/maps.js"></script>
-    
+
     <script src="../../deps/amcharts4/themes/dark.js"></script>
     <script src="../../deps/amcharts4/themes/animated.js"></script>
 
@@ -31,24 +31,26 @@
 
     <!-- Main app -->
     <script src="app.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="flexbox">
-      <div id="chartdiv"></div>
-      <div id="list">
-        <table id="areas" class="compact hover order-column row-border">
-          <thead>
-            <tr>
-              <th>Country/State</th>
-              <th>Confirmed</th>
-              <th>Deaths</th>
-              <th>Recovered</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-      </div>
+        <div id="chartdiv"></div>
+        <div id="list">
+            <table id="areas" class="compact hover order-column row-border">
+                <thead>
+                    <tr>
+                        <th>Country/State</th>
+                        <th>Confirmed</th>
+                        <th>Deaths</th>
+                        <th>Recovered</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
-  </body>
+</body>
+
 </html>
