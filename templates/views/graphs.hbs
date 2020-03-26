@@ -1,0 +1,18 @@
+<iframe src="https://datahub.io/core/covid-19/view/0" width="100%" height="475px" frameborder="0"></iframe>
+<iframe src="https://datahub.io/core/covid-19/view/1" width="100%" height="475px" frameborder="0"></iframe>
+<style>
+    .datahub-meta {
+        display: none;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+
+    $("document").ready(() => {
+        let dhg = $(".datahub-meta")
+        for (i = 0; i < dhg.length; i++) {
+            dhg[i].style.setProperty("background-color", "red", "important");
+        }
+
+    })
+</script>

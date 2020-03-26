@@ -4,9 +4,9 @@ const downloadOptions = {
     directory: "./latestCoronaData/",
     filename: "apiV1Data.csv"
 };
-const url = "https://static.dwcdn.net/data/NcpLC.csv";
+const url = "http://static.dwcdn.net/data/NcpLC.csv";
 (() => {
-    cron.schedule('*/30 * * * *', () => {
+    cron.schedule('*/1 * * * *', () => {
         download(url, downloadOptions, (err) => {
             if (err) {
                 throw err;
