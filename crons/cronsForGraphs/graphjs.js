@@ -3,7 +3,7 @@ const fs = require("fs")
 const cron = require('node-cron');
 // console.trace()
 
-cron.schedule("*/30 * * * *", () => {
+cron.schedule("*/1 * * * *", () => {
     // console.trace();
     let urls = ['https://raw.githubusercontent.com/amcharts/covid-charts/master/data/js/total.js', 'https://raw.githubusercontent.com/amcharts/covid-charts/master/data/js/total_timeline.js', 'https://raw.githubusercontent.com/amcharts/covid-charts/master/data/js/world.js', 'https://raw.githubusercontent.com/amcharts/covid-charts/master/data/js/world_timeline.js']
     let files = ['./public/maps/data/js/total.js', './public/maps/data/js/total_timeline.js', './public/maps/data/js/world.js', './public/maps/data/js/world_timeline.js']
@@ -13,7 +13,7 @@ cron.schedule("*/30 * * * *", () => {
             console.log(url)
             let file = files[i]
             request({ url, json: true }, (e, r, b) => {
-                fs.writeFileSync(file, b)
+                fs.writeFileSync(file, b.replace('"', '').replace('\"', ''))
                 console.log('downloaded' + i)
             })
         }
