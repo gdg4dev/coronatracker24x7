@@ -372,7 +372,7 @@ try {
         res.status(404).render('404')
     })
 
-    //START SERVER
+    //START
     app.listen(port, () => {
         console.log('Server started successfully')
     })
