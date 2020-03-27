@@ -13,8 +13,12 @@ cron.schedule("*/10 * * * *", () => {
             const url = "http://newsapi.org/v2/top-headlines?q=coronavirus&apiKey=" + keys[i - 1] + "&language=en&page=" + i
             console.log(url)
             request({ url, json: true }, (e, r, b) => {
-                arr.push(b.articles)
-                a(arr)
+                try {
+                    arr.push(b.articles)
+                    a(arr)
+                } catch (e) {
+                    console.log('rss2 error')
+                }
             })
         }
     };

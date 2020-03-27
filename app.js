@@ -61,7 +61,7 @@ try {
         })
     })
 
-    app.get('/tracker', (req, res) => {
+    app.get('/global', (req, res) => {
             try {
                 let isRequestingCountry = req.query.country || false
                     // console.log(country)
@@ -217,7 +217,10 @@ try {
         })
     })
 
-    app.get('/graphs', (req, res) => {
+    app.get('/details', (req, res) => {
+        res.render('tracker')
+    })
+    app.get('/tracker', (req, res) => {
         res.render('graphs')
     })
     app.get('/symptoms', (req, res) => {
@@ -372,7 +375,7 @@ try {
         }
     });
 
-    app.get('/analytics', (req, res) => {
+    app.get('/graphs', (req, res) => {
         res.render('analytics')
     })
 

@@ -26,6 +26,7 @@
         "moment": "^2.24.0",
         "mongoose": "^5.9.6",
         "node-cron": "^2.0.3",
+        "node-fetch": "^2.6.0",
         "novelcovid": "^1.0.4",
         "request": "^2.88.2",
         "request-promise": "^4.2.5",

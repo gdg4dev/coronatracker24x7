@@ -4,12 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Graphs</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body style="padding-top: 15vh;">
+    <div id="progressbar"></div>
+    <div id="scrollpath"></div>
+    {{> navbar}}
+
     <canvas id="myChart"></canvas>
     <div></div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script>
         let body = document.getElementsByTagName("body")[0];
@@ -85,15 +91,25 @@
                 var result = Object.keys(d).map(function (key) {
                     return [Number(key), d[key]];
                 });
+                let countryNames = []
+                let cn = Object.keys(d).forEach((v, i, a) => {
+                    countryNames.push(v)
+                })
+                console.log(countryNames)
                 result.forEach((v, i, a) => {
                     let chartID = 'chart' + i
                     z = document.createElement("canvas")
                     z.id = chartID
-                    z.width = "700px"
+                    z.width = "50%"
                     z.height = "200px"
+                    cnm = document.createElement('h1')
+                    cnm.id = countryNames[i]
+                    cnm.innerHTML = countryNames[i]
                     zx = document.createElement('div')
                     body.prepend(zx)
+
                     zx.prepend(z)
+                    zx.prepend(cnm)
                     generateChart(chartID, v[1], i)
                 })
 
@@ -104,10 +120,34 @@
         setTimeout(() => {
             bss = document.getElementsByTagName('canvas')
             for (i = 0; i < bss.length; i++) {
-                bss[i].style.height = "500px"
+                bss[i].style.height = "300px"
+                bss[i].style.width = "90%"
+                let progress = document.getElementById('progressbar')
+                let totalHeight = document.body.scrollHeight - window.innerHeight
+                window.onscroll = () => {
+                    let progressHeight = (window.pageYOffset / totalHeight) * 100
+                    progress.style.height = progressHeight + '%'
+                }
             }
         }, 5000)
     </script>
+
 </body>
+
+<footer class="ftco-footer ftco-bg-dark ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p>
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This website is
+                    developed with
+                    ❤ by <a href="https://t.me/anikethirpara" target="_blank">Team Codershub</a>
+
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
 
 </html>

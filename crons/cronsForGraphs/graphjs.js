@@ -13,8 +13,12 @@ cron.schedule("*/10 * * * *", () => {
             console.log(url)
             let file = files[i]
             request({ url, json: true }, (e, r, b) => {
-                fs.writeFileSync(file, b.replace('"', '').replace('\"', ''))
-                console.log('downloaded' + i)
+                try {
+                    fs.writeFileSync(file, b.replace('"', '').replace('\"', ''))
+                    console.log('downloaded' + i)
+                } catch (e) {
+                    console.log('graphjs error')
+                }
             })
         }
 
