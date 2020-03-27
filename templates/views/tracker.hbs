@@ -57,7 +57,9 @@
             overflow: hidden;
         }
 
-
+        .tbls {
+            margin-bottom: 7vh;
+        }
 
         @media only screen and (max-width: 992px) {
             .tbls {
@@ -83,6 +85,8 @@
             }
         }
     </style>
+    <script data-ad-client="ca-pub-5835447432382332" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 <body style="padding-top: 15vh;">
@@ -100,6 +104,7 @@
 
         <table id="dtDynamicVerticalScrollExample2" class="ndct table table-striped table-bordered table-sm"
             cellspacing="0" width="100%">
+
             <thead>
                 <tr>
                     <th>Country</th>
@@ -142,6 +147,13 @@
             </tfoot>
         </table>
     </div>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Ad Set 1 -->
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5835447432382332" data-ad-slot="5654142318"
+        data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
     <div class="tbls">
         <table id="dtDynamicVerticalScrollExample" class="dct table table-striped table-bordered table-sm"
             cellspacing="0" width="100%">
@@ -250,6 +262,14 @@
             </tfoot>
         </table>
     </div>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Ad Set 2 -->
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5835447432382332" data-ad-slot="5270998939"
+        data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
     <div class="tbls">
         <table id="dtDynamicVerticalScrollExample4" class="dct table table-striped table-bordered table-sm"
             cellspacing="0" width="100%">
@@ -374,6 +394,114 @@
                 </tr>
             </thead>
             <tbody>
+                {{#each caRegions}}
+                <tr>
+                    <td>{{this.country}}</td>
+                    <td class="text-info">{{this.cases}}</td>
+                    <td style="color: #9c27b0  ">{{this.todayCases}}</td>
+                    <td class="text-danger">{{this.todayDeaths}}</td>
+                    <td class="text-danger">{{this.deaths}}</td>
+                    <td class="text-success">{{this.recovered}} </td>
+                    <td class="text-warning">{{this.serious}}</td>
+                    <td class="text-warning">{{this.critical}}</td>
+                </tr>
+
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total Canada</th>
+                    <th class="text-info">{{caRegionsTotal.cases}}</th>
+                    <th style="color: #9c27b0  ">{{caRegionsTotal.todayCases}}</th>
+                    <th class="text-danger">{{caRegionsTotal.todayDeaths}}</th>
+                    <th class="text-danger">{{caRegionsTotal.deaths}}</th>
+                    <th class="text-success">{{caRegionsTotal.recovered}} </th>
+                    <th class="text-warning">{{caRegionsTotal.serious}}</th>
+                    <th class="text-warning">{{caRegionsTotal.critical}}</th>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <th> Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="tbls">
+        <table id="dtDynamicVerticalScrollExample6" class="table dct table-striped table-bordered table-sm"
+            cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each chRegions}}
+                <tr>
+                    <td>{{this.country}}</td>
+                    <td class="text-info">{{this.cases}}</td>
+                    <td style="color: #9c27b0  ">{{this.todayCases}}</td>
+                    <td class="text-danger">{{this.todayDeaths}}</td>
+                    <td class="text-danger">{{this.deaths}}</td>
+                    <td class="text-success">{{this.recovered}} </td>
+                    <td class="text-warning">{{this.serious}}</td>
+                    <td class="text-warning">{{this.critical}}</td>
+                </tr>
+
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total China</th>
+                    <th class="text-info">{{chRegionsTotal.cases}}</th>
+                    <th style="color: #9c27b0  ">{{chRegionsTotal.todayCases}}</th>
+                    <th class="text-danger">{{chRegionsTotal.todayDeaths}}</th>
+                    <th class="text-danger">{{chRegionsTotal.deaths}}</th>
+                    <th class="text-success">{{chRegionsTotal.recovered}} </th>
+                    <th class="text-warning">{{chRegionsTotal.serious}}</th>
+                    <th class="text-warning">{{chRegionsTotal.critical}}</th>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <th> Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="tbls">
+        <table id="dtDynamicVerticalScrollExample6" class="table dct table-striped table-bordered table-sm"
+            cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </thead>
+            <tbody>
                 {{#each afRegions}}
                 <tr>
                     <td>{{this.country}}</td>
@@ -385,9 +513,9 @@
                     <td class="text-warning">{{this.serious}}</td>
                     <td class="text-warning">{{this.critical}}</td>
                 </tr>
-            </tbody>
-            {{/each}}
 
+                {{/each}}
+            </tbody>
             <tfoot>
                 <tr>
                     <th>Total Africa</th>
@@ -476,95 +604,38 @@
     </script>
     <script src='//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
     <script>
-        let nSet = {
-            responsive: {
-                details: false
-            },
-            data: null,
-            "scrollY": "75vh",
-            "scrollCollapse": true,
-            "language": {
-                "search": "&#128269;",
-                "searchPlaceholder": "search data"
-            },
-            "autoWidth": true,
-            "bInfo": false,
-            "bPaginate": false,
-            "order": [
-                [1, "desc"]
-            ],
-            "columnDefs": [{
-                responsivePriority: 2,
-                targets: 1
-            },
-            {
-                "targets": [3, 6],
-                "visible": false,
-                "searchable": false
-            }
-            ],
-            "columns": [{
-                data: "country",
-                "width": "20%",
-                className: 'text--gray'
-            },
-            {
-                data: "cases",
-                className: 'text--green'
-            },
-            {
-                data: "caseRateCopy",
-                className: 'text--green',
-                render: (data, type, row) => {
-                    if (data === "0" || row.caseRate === "0.00" || row.caseRate === "0") return '';
-                    if (type === "display") return `&#8593; ${data} (${row.caseRate}%)`
-                    return data;
-                }
-            },
-            {
-                data: "caseRate",
-                className: 'text--green',
-            },
-            {
-                data: "deaths",
-                className: 'text--red',
-            },
-            {
-                data: "deathRateCopy",
-                className: 'text--red',
-                render: (data, type, row) => {
-                    if (data === "0" || row.deathRate === "0.00" || row.deathRate === "0") return '';
-                    if (type === "display") return `&#8593; ${data} (${row.deathRate}%)`
-                    return data;
-                }
-            },
-            {
-                data: "deathRate",
-                className: 'text--red'
-            },
-            {
-                data: "recovered",
-                className: 'text--blue'
-            },
-            {
-                data: "serious",
-                className: 'text--yellow'
-            }
-            ]
-        }
+
 
 
         $(document).ready(function () {
-            $('.dct').DataTable({
+            let nSet = {
+                responsive: {
+                    details: false
+                },
+                data: null,
                 "scrollY": "75vh",
                 "scrollCollapse": true,
-                paging: false
-            });
-            $(".ndct").DataTable(nset)
+                "language": {
+                    "search": "&#128269;",
+                    "searchPlaceholder": "search data"
+                },
+                "autoWidth": true,
+                "bInfo": false,
+                "bPaginate": false
+            }
 
+
+            $(".ndct").DataTable(nSet)
+            $('.dct').DataTable(nSet);
             $('.dataTables_length').addClass('bs-select');
             $("table").css({ "width": "93% !important", "margin": "auto !important" })
+            $(".dataTables_filter")[0].prepend('GLOBAL')
+            let dCount = $(".dataTables_filter")
+            let dCountries = ['GLOBAL', 'USA', 'EUROPE', 'AUSTRALIA', 'LATIN AMERICA', 'CANADA', 'CHINA', 'AFRICA']
+            for (i = 1; i < dCount.length; i++) {
 
+                $(".dataTables_filter")[i].prepend(dCountries[i])
+            }
             if (window.innerWidth < 992) {
                 var tBodyEle = document.getElementsByClassName("dataTables_scrollBody");
                 var tHeadInnr = document.getElementsByClassName("dataTables_scrollHeadInner");

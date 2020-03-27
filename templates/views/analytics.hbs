@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="myChart"></canvas>
+    <div></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
+        let body = document.getElementsByTagName("body")[0];
+        const makeid = (length) => {
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+        const getData = (a) => {
+            fetch('/corona/graphData')
+                .then((rawData) => {
+                    return rawData.json()
+                })
+                .then((d) => {
+                    a(d)
+                })
+        }
+
+        const generateChart = (chartID, xData, i) => {
+            var ctx = document.getElementById(chartID).getContext('2d');
+
+            let z = xData
+            let a1 = []
+            let b1 = []
+            let c1 = []
+            let d1 = []
+            for (i = 0; i < z.length; i++) {
+                a1.push(z[i].date)
+                delete z[i].date
+                b1.push(z[i].confirmed)
+                delete z[i].confirmed
+                c1.push(z[i].recovered)
+                delete z[i].recovered
+                d1.push(z[i].deaths)
+                delete z[i].deaths
+            }
+
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: a1,
+                    datasets: [{
+                        label: 'Confirmed',
+                        backgroundColor: 'rgba(188,80,144,.3)',
+                        borderColor: 'rgba(255, 18, 158,.5)',
+                        fillOpacity: .3,
+                        data: b1
+                    }, {
+                        label: 'Recovered',
+                        backgroundColor: 'rgba(76,175,80,.3)',
+                        borderColor: 'rgba(48, 230, 56,.5)',
+                        fillOpacity: .3,
+                        data: c1
+                    }, {
+                        label: 'Deaths',
+                        backgroundColor: 'rgba(255,99,97,.3)',
+                        borderColor: 'rgba(255, 76, 74,.5)',
+                        data: d1,
+                        fillOpacity: .3
+                    }]
+                },
+                options: { maintainAspectRatio: false }
+            });
+        }
+
+        (async () => {
+            await getData(async (d) => {
+
+                var result = Object.keys(d).map(function (key) {
+                    return [Number(key), d[key]];
+                });
+                result.forEach((v, i, a) => {
+                    let chartID = 'chart' + i
+                    z = document.createElement("canvas")
+                    z.id = chartID
+                    z.width = "700px"
+                    z.height = "200px"
+                    zx = document.createElement('div')
+                    body.prepend(zx)
+                    zx.prepend(z)
+                    generateChart(chartID, v[1], i)
+                })
+
+
+            })
+        })()
+
+        setTimeout(() => {
+            bss = document.getElementsByTagName('canvas')
+            for (i = 0; i < bss.length; i++) {
+                bss[i].style.height = "500px"
+            }
+        }, 5000)
+    </script>
+</body>
+
+</html>

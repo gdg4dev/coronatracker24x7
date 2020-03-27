@@ -3,7 +3,7 @@ const fs = require("fs")
 const cron = require('node-cron');
 // console.trace()
 
-cron.schedule("*/30 * * * *", () => {
+cron.schedule("*/10 * * * *", () => {
     // console.trace();
     const arrData = (a) => {
         let arr = []

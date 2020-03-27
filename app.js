@@ -5,6 +5,7 @@ require('./crons/rss2')
 require('./scraper')
 require('./crons/cronsForGraphs/graphjs')
 require('./crons/cronsForGraphs/graphjson')
+require('./crons/graphcdata')
 const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
@@ -24,7 +25,7 @@ const coronaCanada = require('./utils/coronaCanada')
 const coronaChina = require('./utils/coronaChina')
 const coronaLatinAmerica = require('./utils/coronaLatinAmerica')
 const coronaAfrica = require('./utils/coronaAfrica')
-    // const graphs = require('./utils/graph')
+const graphsD = require('./utils/graphcdata')
 const rss = require('./utils/rss')
 const sortedRSS = require('./utils/sortRawRssData')
 const getTotalObj = require('./utils/getTotalObj')
@@ -326,7 +327,15 @@ try {
             res.status(500).send({ 'error': 'Some went wrong!' })
         }
     })
-
+    app.get('/corona/graphData', (req, res) => {
+        try {
+            graphsD((APIData, err) => {
+                res.send(APIData)
+            })
+        } catch (e) {
+            res.status(500).send({ 'error': 'Some went wrong!' })
+        }
+    })
     app.get('/corona/latinamerica', (req, res) => {
         try {
             const clientAuthID = req.query.key
@@ -361,11 +370,11 @@ try {
         } catch (e) {
             res.status(500).send({ 'error': 'Some went wrong!' })
         }
+    });
+
+    app.get('/analytics', (req, res) => {
+        res.render('analytics')
     })
-
-
-
-
 
     //DEFAULT 404
     app.get('*', (req, res) => {
