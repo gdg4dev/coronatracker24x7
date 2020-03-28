@@ -6,19 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graphs</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .search {
+            display: flex;
+            justify-content: center;
+            justify-items: center;
+            margin: 10px;
+        }
+
+        .text {
+            border: black 1px solid;
+            padding: 7px;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 
 <body style="padding-top: 15vh;">
     <div id="progressbar"></div>
     <div id="scrollpath"></div>
     {{> navbar}}
+    <div class="search"><input name="text" id="text" class="text" type="text" placeholder="Search Country.."></div>
 
-    <canvas id="myChart"></canvas>
-    <div></div>
+    <div class="cndiv"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script>
-        let body = document.getElementsByTagName("body")[0];
+        alert('This Page Will Take Some Time To Render And It\'ll Use More CPU/GPU To Load Graphs')
+        alert('If Graphs Is Not Being Displayed Properly Then Try Resizing Your Browser')
+        let body = document.getElementsByTagName("div")[5];
         const makeid = (length) => {
             var result = '';
             var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -40,7 +56,6 @@
 
         const generateChart = (chartID, xData, i) => {
             var ctx = document.getElementById(chartID).getContext('2d');
-
             let z = xData
             let a1 = []
             let b1 = []
@@ -84,7 +99,7 @@
                 options: { maintainAspectRatio: false }
             });
         }
-
+        let cList
         (async () => {
             await getData(async (d) => {
 
@@ -96,6 +111,7 @@
                     countryNames.push(v)
                 })
                 console.log(countryNames)
+                cList = countryNames
                 result.forEach((v, i, a) => {
                     let chartID = 'chart' + i
                     z = document.createElement("canvas")
@@ -106,14 +122,12 @@
                     cnm.id = countryNames[i]
                     cnm.innerHTML = countryNames[i]
                     zx = document.createElement('div')
-                    body.prepend(zx)
-
+                    zx.class = "canva-div"
+                    body.append(zx)
                     zx.prepend(z)
                     zx.prepend(cnm)
                     generateChart(chartID, v[1], i)
                 })
-
-
             })
         })()
 
@@ -121,7 +135,7 @@
             bss = document.getElementsByTagName('canvas')
             for (i = 0; i < bss.length; i++) {
                 bss[i].style.height = "300px"
-                bss[i].style.width = "90%"
+                //bss[i].style.width = "90%"
                 let progress = document.getElementById('progressbar')
                 let totalHeight = document.body.scrollHeight - window.innerHeight
                 window.onscroll = () => {
@@ -130,9 +144,25 @@
                 }
             }
         }, 5000)
+        window.onload = () => {
+            let inpt = document.getElementById('text')
+            let h1 = document.getElementsByTagName('h1')
+            let cnvs = document.getElementsByClassName('cndiv')
+            let aln = cnvs[0].childNodes
+            console.log(cList)
+            inpt.addEventListener('keyup', (d) => {
+                console.log('called')
+                if (cList.includes(d.target.value)) {
+                    aln.forEach((v, k, p) => {
+                        aln.forEach((v) => { console.log(v.style.display = "none") })
+                    })
+                }
+            })
+        }
     </script>
 
 </body>
+
 
 <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
@@ -143,7 +173,6 @@
                     <script>document.write(new Date().getFullYear());</script> All rights reserved | This website is
                     developed with
                     ❤ by <a href="https://t.me/anikethirpara" target="_blank">Team Codershub</a>
-
                 </p>
             </div>
         </div>
