@@ -4562,6 +4562,9 @@ input[type="button"].btn-block {
 .nav-link {
     display: block;
     padding: 0.5rem 1rem;
+    padding-left: 11px !important;
+    padding-right: 11px !important;
+    padding-bottom: 11px !important;
 }
 
 .nav-link:hover,

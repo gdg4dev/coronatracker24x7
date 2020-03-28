@@ -25,8 +25,31 @@
 <body style="padding-top: 15vh;">
     <div id="progressbar"></div>
     <div id="scrollpath"></div>
-    {{> navbar}}
-    <div class="search"><input name="text" id="text" class="text" type="text" placeholder="Search Country.."></div>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">CORONAWATCH<small>247</small></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item {{navItem1State}}"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item {{navItem2State}}"><a href="tracker" class="nav-link">Live Tracker</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="graphs">Graphs</a></li>
+                    <li class="nav-item {{navItem4State}}"><a href="global" class="nav-link">Global</a></li>
+                    <li class="nav-item {{navItem5State}}"><a class="nav-link" href="symptoms">Symptoms</a></li>
+                    <li class="nav-item {{navItem6State}}"><a href="prevention" class="nav-link">Prevention</a></li>
+                    <li class="nav-item {{navItem7State}}"><a href="wiki" class="nav-link">Wiki</a></li>
+                    <li class="nav-item {{navItem8State}}"><a href="news" class="nav-link">News</a></li>
+
+                    <!-- <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Get started</span></a></li> -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {{!-- <div class="search"><input name="text" id="text" class="text" type="text" placeholder="Search Country.."></div> --}}
 
     <div class="cndiv"></div>
 
@@ -34,7 +57,7 @@
     <script>
         alert('This Page Will Take Some Time To Render And It\'ll Use More CPU/GPU To Load Graphs')
         alert('If Graphs Is Not Being Displayed Properly Then Try Resizing Your Browser')
-        let body = document.getElementsByTagName("div")[5];
+        let body = document.getElementsByTagName("div")[4];
         const makeid = (length) => {
             var result = '';
             var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

@@ -48,7 +48,9 @@ try {
                 finalData = countryList
                 finalObj = d2
                 console.log(d2)
+
                 res.render('index', {
+                    navItem1State: 'active',
                     countryList,
                     title: true,
                     finalObj,
