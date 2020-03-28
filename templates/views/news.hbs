@@ -53,7 +53,20 @@
             </div>
         </div>
     </nav>
-
+    <section style='  height: 100%;
+  width: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+  background: linear-gradient(to right, #c471ed, #12c2e9);' class="ftco-section services-section bg-light">
+        <div class="container">
+            <div class="row justify-content-center mb-5 pb-3">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <h2 class="mb-4">NEWS</h2>
+                </div>
+            </div>
+            <div class="row mt-5 mb-5" id="cdeck">
+            </div>
+        </div>
+    </section>
     <footer class="ftco-footer ftco-bg-dark ftco-section">
         <div class="container">
             <div class="row">
@@ -97,28 +110,65 @@
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
     <script>
-        window.onload = () => {
-            let progress = document.getElementById('progressbar')
-            let totalHeight = document.body.scrollHeight - window.innerHeight
-            window.onscroll = () => {
-                let progressHeight = (window.pageYOffset / totalHeight) * 100
-                progress.style.height = progressHeight + '%'
+        function handleErrors(request) {
+            if (!request.ok) {
+                throw Error(request.status)
             }
+            return request
+        }
+
+        window.onload = () => {
+            url = "/corona/rss/type/json?limit=100"
+            fetch(url)
+                .then(handleErrors)
+                .then(function (response) {
+                    var responseJson = response.json()
+                    return responseJson
+                })
+                .then(async (data) => {
+                    function dedupe(arr) {
+                        return arr.reduce(function (p, c) {
+                            var id = [c.title, c.urlToImage].join('|');
+                            if (p.temp.indexOf(id) === -1) {
+                                p.out.push(c);
+                                p.temp.push(id);
+                            }
+                            return p;
+                        }, {
+                            temp: [],
+                            out: []
+                        }).out;
+                    }
+                    finalDat = await dedupe(data)
+                    console.log(finalDat)
+                    finalDat.forEach((value, index, array) => {
+                        let valuedescription = value.description
+                        imgUrl = value.urlToImage
+                        if (value.urlToImage == "" || value.urlToImage == undefined || value.urlToImage == " ") {
+                            let imgUrl = "https://www.atms.com.au/wp-content/uploads/2019/10/placeholder-1-1024x683.png?x93630"
+                            $("#cdeck").append("<div class='cccd col-xs-12 col-sm-12 col-md-4 d-flex align-items-stretch mb-3'><div class='card'><img class='card-img cimg' src=" + imgUrl + "><div class='card-content'><h4>" + value.title.substr(0, 40) + "...</h4><span>" + value.source.name + "</span><p>" + valuedescription.substr(0, 250) + "...</p><a href=" + value.url + " class='btn btn-primary px-4 py-3 bttttn  align-self-end mt-auto'target='_blank' style='position: relative; bottom: 0'>Read More</a></div></div></div></div></div >")
+                        }
+                        if (value.description == undefined || value.description == "" || value.description == " " || value.description.length <= 75) {
+                            valuedescription = value.content
+                            $("#cdeck").append("<div class='cccd col-xs-12 col-sm-12 col-md-4 d-flex align-items-stretch mb-3' ><div class='card'><img class='card-img cimg' src=" + imgUrl + "><div class='card-content'><h4>" + value.title.substr(0, 40) + "...</h4><span>" + value.source.name + "</span><p>" + valuedescription.substr(0, 250) + "...</p><a href=" + value.url + " target='_blank' class='btn btn-primary px-4 py-3 bttttn align-self-end mt-auto' style='position: relative; bottom: 0'>Read More</a></div></div></div></div></div >")
+                        } else {
+                            $("#cdeck").append("<div class='cccd col-xs-12 col-sm-12 col-md-4 d-flex align-items-stretch mb-3'><div class='card'><img class='card-img cimg' src=" + imgUrl + "><div class='card-content'><h4>" + value.title.substr(0, 40) + "...</h4><span>" + value.source.name + "</span><p>" + valuedescription.substr(0, 250) + "...</p><a href=" + value.url + " class='btn btn-primary px-4 py-3 bttttn align-self-end mt-auto' target='_blank' style='position: relative; bottom: 0'>Read More</a></div></div></div></div></div >")
+                        }
+
+                    })
+
+                    let progress = document.getElementById('progressbar')
+                    let totalHeight = document.body.scrollHeight - window.innerHeight
+                    window.onscroll = () => {
+                        let progressHeight = (window.pageYOffset / totalHeight) * 100
+                        progress.style.height = progressHeight + '%'
+                    }
+                })
             if (window.innerWidth <= 993) {
                 document.getElementsByTagName("body")[0].style.padding = 0
             }
         }
 
-    </script>
-    <script src='//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
-    <script>
-
-        $(document).ready(function () {
-            $('#header-fixed').DataTable({
-                paging: false,
-                aaSorting: [[0, 'desc']]
-            });
-        });
     </script>
 </body>
 
