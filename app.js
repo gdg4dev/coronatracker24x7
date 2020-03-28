@@ -247,8 +247,8 @@ try {
     app.get('/tracker', (req, res) => {
         res.render('graphs')
     })
-    app.get('/symptoms', (req, res) => {
-        res.render('symptoms')
+    app.get('/future', (req, res) => {
+        res.render('future')
     })
     app.get('/prevention', (req, res) => {
         res.render('prevention')
