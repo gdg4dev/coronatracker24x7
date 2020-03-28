@@ -1,5 +1,5 @@
 const request = require("request")
-const fs = require("fs") and
+const fs = require("fs")
 const cron = require('node-cron');
 // console.trace()
 
