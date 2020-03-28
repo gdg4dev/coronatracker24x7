@@ -24,6 +24,84 @@
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="css/style.css">
+        <style>
+        @import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400, 600";
+
+        *,
+        *::before,
+        *::after {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+
+        .card {
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            background-color: #fafafa;
+            border: 0px;
+            transition: all 0.3s ease-in-out;
+            border-radius: 13px !important
+        }
+
+        .card .card-img {
+            height: auto;
+            width: 100%;
+            background-color: #4426a8;
+            position: relative;
+            background-size: cover;
+            background-position: center top;
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+            transition: all 0.5s ease-in-out;
+        }
+
+        .card .card-content span {
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: block;
+        }
+
+        .card svg {
+            position: absolute;
+            top: 0;
+
+        }
+
+        .card .card-content {
+            width: 100%;
+            overflow-x: hidden;
+            padding: 10px 20px 30px 20px;
+            position: relative;
+            overflow-y: hidden;
+            background: #fff !important
+        }
+
+        .card .card-content .bttn {
+            display: inline-block;
+            padding: 7px 8px;
+            text-align: center;
+            border-radius: 3px;
+            background-color: #39454b;
+            text-decoration: none;
+            color: #fff;
+            transition: 300ms all;
+        }
+
+        .card .card-content .bttn:hover {
+            background-color: #3e4c53;
+            color: #fff;
+        }
+
+        .card .card-content p:first-of-type {
+            margin-top: 0px;
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body style="padding-top: 15vh;">
