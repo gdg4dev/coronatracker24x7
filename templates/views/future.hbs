@@ -60,11 +60,16 @@
             padding-top: 5vh;
         }
 
-        dt {font-size: 29px;
+        dt {font-size: 31px;
         }
         dd {
-            font-size: 20px;
+            font-size: 23px;
             padding: 5px
+            
+        }
+        .ddd{
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
@@ -97,7 +102,20 @@
         </div>
     </nav>
     <section>
-       
+       <dl>
+           <dt>How much time it would take to defeat covid-19 ?</dt>
+           <dd>
+               &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Talking about the future, currently there are two most trending prediction curve. First is long curve and second one is short curve. First curve shows us the future of how it will result in without doing protective measures. If we avoid doing protective measures, it will result in higher death rate and the duration of war against will be small. What does higher death rate means? There no exact numbers for that but it can be in millions may be in a billion who knows?
+<br><br>
+<div style="display: flex; justify-content: center "><img height="400px" width="800px" src="https://www.wlrn.org/sites/wlrn/files/styles/x_large/public/202003/covid_curve_screen_shot.png" alt="covid prediction"></div><br><br>
+                &nbsp; &nbsp;&nbsp; &nbsp; From the above chart we can see that, Second curve is small but long. It means that it would take more time to defeat covid-19 or to find an vaccine for coronavirus (covid-19). Estimated time could be between few months to few years but the death rate will be lower compared to first curve. It may cause an complete economic crash but life is always greater than money. What does economy even mean without people? This curve would be long but effective way. Many nations are trying to flatten the curve by spreading awareness about social-distancing and to maintain pre-cautions. 
+
+                <br><br>
+
+                &nbsp; &nbsp;&nbsp; &nbsp; Here is a visualization that explains the future of fight against coronavirus based on previous data and the current rate of deaths, spread and recovery from many trustable sources. It's not 100% accurate, it's just prediction based on data.
+             <br><br><div class="ddd">   <iframe height="500px" width="90%" src="futureOfCovid" frameborder="0"></iframe></div>
+           </dd>
+       </dl>
     </section>
     <footer class="ftco-footer ftco-bg-dark ftco-section">
         <div class="container">
@@ -158,12 +176,11 @@
     <script src='//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
     <script>
 
-        $(document).ready(function () {
-            $('#header-fixed').DataTable({
-                paging: false,
-                aaSorting: [[0, 'desc']]
-            });
-        });
+       window.onload = ()=>{
+            if (window.innerWidth <= 993) {
+                document.getElementsByTagName("body")[0].style.padding = 0
+            }
+       }
     </script>
 </body>
 

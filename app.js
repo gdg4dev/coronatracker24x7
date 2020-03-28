@@ -262,6 +262,9 @@ try {
         res.render('news')
     })
 
+    app.get('/futureOfCovid', (req, res) => {
+        res.render('futureOfCovid')
+    })
 
     app.get('/corona/usa', (req, res) => {
         try {

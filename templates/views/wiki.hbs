@@ -432,14 +432,13 @@
 
     </script>
     <script src='//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
-    <script>
+  <script>
 
-        $(document).ready(function () {
-            $('#header-fixed').DataTable({
-                paging: false,
-                aaSorting: [[0, 'desc']]
-            });
-        });
+       window.onload = ()=>{
+            if (window.innerWidth <= 993) {
+                document.getElementsByTagName("body")[0].style.padding = 0
+            }
+       }
     </script>
 </body>
 
