@@ -3,7 +3,7 @@ const fs = require("fs")
 const cron = require('node-cron');
 // console.trace()
 
-cron.schedule("*/10 * * * *", () => {
+cron.schedule("*/15 * * * *", () => {
     // console.trace();
     let urls = ['https://raw.githubusercontent.com/amcharts/covid-charts/master/data/js/total.js', 'https://raw.githubusercontent.com/amcharts/covid-charts/master/data/js/total_timeline.js', 'https://raw.githubusercontent.com/amcharts/covid-charts/master/data/js/world.js', 'https://raw.githubusercontent.com/amcharts/covid-charts/master/data/js/world_timeline.js']
     let files = ['./public/maps/data/js/total.js', './public/maps/data/js/total_timeline.js', './public/maps/data/js/world.js', './public/maps/data/js/world_timeline.js']
