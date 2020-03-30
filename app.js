@@ -36,7 +36,6 @@ app.use(express.json())
 app.use(express.static(publicPath))
 hbs.registerPartials(partialsPath)
 app.set('view engine', 'hbs')
-
 app.set('views', viewPath)
     // app.set('json spaces', 2);
 app.use(express.json());
@@ -50,7 +49,7 @@ try {
                 finalObj = d2
                 console.log(d2)
 
-                res.render('index.hbs', {
+                res.render('index', {
                     navItem1State: 'active',
                     countryList,
                     title: true,
@@ -94,7 +93,7 @@ try {
                                                     if (req.query.country) {
                                                         if (country.includes(req.query.country.charAt(0).toUpperCase() + req.query.country.slice(1))) {
                                                             let countryExists = true
-                                                            res.render('tracker.hbs', {
+                                                            res.render('tracker', {
                                                                 data,
                                                                 isRequestingCountry,
                                                                 countryExists,
@@ -115,7 +114,7 @@ try {
                                                             })
                                                         } else {
                                                             let countryExists = false
-                                                            res.render('tracker.hbs', {
+                                                            res.render('tracker', {
                                                                 data,
                                                                 isRequestingCountry,
                                                                 countryExists,
@@ -136,7 +135,7 @@ try {
                                                             })
                                                         }
                                                     } else {
-                                                        res.render('tracker.hbs', {
+                                                        res.render('tracker', {
                                                             data,
                                                             isRequestingCountry,
                                                             usRegions,
@@ -243,28 +242,28 @@ try {
     })
 
     app.get('/details', (req, res) => {
-        res.render('tracker.hbs')
+        res.render('tracker')
     })
     app.get('/tracker', (req, res) => {
-        res.render('graphs.hbs')
+        res.render('graphs')
     })
     app.get('/future', (req, res) => {
-        res.render('future.hbs')
+        res.render('future')
     })
     app.get('/prevention', (req, res) => {
-        res.render('prevention.hbs')
+        res.render('prevention')
     })
 
     app.get('/wiki', (req, res) => {
-        res.render('wiki.hbs')
+        res.render('wiki')
     })
 
     app.get('/news', (req, res) => {
-        res.render('news.hbs')
+        res.render('news')
     })
 
     app.get('/futureOfCovid', (req, res) => {
-        res.render('futureOfCovid.hbs')
+        res.render('futureOfCovid')
     })
 
     app.get('/corona/usa', (req, res) => {
@@ -403,12 +402,7 @@ try {
     });
 
     app.get('/graphs', (req, res) => {
-
-        graphsD((APIData, err) => {
-            res.render('analytics', {
-                grd: APIData
-            })
-        })
+        res.render('analytics')
     })
 
     //DEFAULT 404

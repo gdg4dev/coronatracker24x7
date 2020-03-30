@@ -13,7 +13,7 @@
             justify-items: center;
             margin: 10px;
         }
-        
+
         .text {
             border: black 1px solid;
             padding: 7px;
@@ -28,38 +28,33 @@
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="index.html">CORONAWATCH<small>247</small></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="tracker" class="nav-link">Live Tracker</a></li>
-                    <li class="nav-item active"><a class="nav-link" href="graphs">Graphs</a></li>
-                    <li class="nav-item"><a href="global" class="nav-link">Global</a></li>
-                    <li class="nav-item"><a class="nav-link" href="prevention">Prevention</a></li>
+                <li class="nav-item {{navItem1State}}"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item {{navItem2State}}"><a href="tracker" class="nav-link">Live Tracker</a></li>
+                    <li class="nav-item active {{navItem3State}}"><a class="nav-link" href="graphs">Graphs</a></li>
+                    <li class="nav-item {{navItem4State}}"><a href="global" class="nav-link">Global</a></li>
+                    <li class="nav-item {{navItem5State}}"><a class="nav-link" href="prevention">Prevention</a></li>
                     <li class="nav-item "><a href="future" class="nav-link">future</a></li>
                     <li class="nav-item "><a href="wiki" class="nav-link">Wiki</a></li>
-                    <li class="nav-item"><a href="news" class="nav-link">News</a></li>
+                    <li class="nav-item {{navItem8State}}"><a href="news" class="nav-link">News</a></li>
 
                     <!-- <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Get started</span></a></li> -->
                 </ul>
             </div>
         </div>
     </nav>
-
-
+    {{!-- <div class="search"><input name="text" id="text" class="text" type="text" placeholder="Search Country.."></div> --}}
 
     <div class="cndiv"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script>
-        var d1 = new Date(); //"now"
-        var d2 = new Date("2020/01/22") // some date
-        var diff = Math.abs(d1 - d2)
-        var finalDte = diff / 86400000
-        var finalDate = Math.floor(finalDte)
         alert('This Page Will Take Some Time To Render And It\'ll Use More CPU/GPU To Load Graphs')
         alert('If Graphs Is Not Being Displayed Properly Then Try Resizing Your Browser')
         let body = document.getElementsByTagName("div")[4];
@@ -78,22 +73,18 @@
                     return rawData.json()
                 })
                 .then((d) => {
-                    let b = <%-JSON.stringify(grd)%>
                     a(d)
-                    console.log(b)
-
                 })
         }
 
         const generateChart = (chartID, xData, i) => {
             var ctx = document.getElementById(chartID).getContext('2d');
-            const z = xData
-
+            let z = xData
             let a1 = []
             let b1 = []
             let c1 = []
             let d1 = []
-            for (i = 0; i < finalDate; i++) {
+            for (i = 0; i < z.length; i++) {
                 a1.push(z[i].date)
                 delete z[i].date
                 b1.push(z[i].confirmed)
@@ -128,16 +119,14 @@
                         fillOpacity: .3
                     }]
                 },
-                options: {
-                    maintainAspectRatio: false
-                }
+                options: { maintainAspectRatio: false }
             });
         }
-        let cList;
-        (async() => {
-            await getData(async(d) => {
+        let cList
+        (async () => {
+            await getData(async (d) => {
 
-                var result = Object.keys(d).map(function(key) {
+                var result = Object.keys(d).map(function (key) {
                     return [Number(key), d[key]];
                 });
                 let countryNames = []
@@ -160,7 +149,6 @@
                     body.append(zx)
                     zx.prepend(z)
                     zx.prepend(cnm)
-                    console.log(v)
                     generateChart(chartID, v[1], i)
                 })
             })
@@ -170,7 +158,7 @@
             bss = document.getElementsByTagName('canvas')
             for (i = 0; i < bss.length; i++) {
                 bss[i].style.height = "300px"
-                    //bss[i].style.width = "90%"
+                //bss[i].style.width = "90%"
                 let progress = document.getElementById('progressbar')
                 let totalHeight = document.body.scrollHeight - window.innerHeight
                 window.onscroll = () => {
@@ -189,9 +177,7 @@
                 console.log('called')
                 if (cList.includes(d.target.value)) {
                     aln.forEach((v, k, p) => {
-                        aln.forEach((v) => {
-                            console.log(v.style.display = "none")
-                        })
+                        aln.forEach((v) => { console.log(v.style.display = "none") })
                     })
                 }
             })
@@ -207,20 +193,21 @@
             <div class="col-md-12 text-center">
                 <p>
                     Copyright &copy;
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script> All rights reserved | This website is developed with ❤ by <a href="https://t.me/anikethirpara" target="_blank">Team Codershub</a>
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This website is
+                    developed with
+                    ❤ by <a href="https://t.me/anikethirpara" target="_blank">Team Codershub</a>
                 </p>
             </div>
         </div>
     </div>
 </footer>
-<script>
-    window.onload = () => {
-        if (window.innerWidth <= 993) {
-            document.getElementsByTagName("body")[0].style.padding = 0
-        }
-    }
-</script>
+  <script>
+
+       window.onload = ()=>{
+            if (window.innerWidth <= 993) {
+                document.getElementsByTagName("body")[0].style.padding = 0
+            }
+       }
+    </script>
 
 </html>

@@ -2,24 +2,91 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graphs</title>
+    <title>coronavirus24x7.com | Get Real Time Stats About COVID-19</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,,500,600,700" rel="stylesheet">
+
+    {{!-- <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css"> --}}
+    <link rel="stylesheet" href="css/animate.css">
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    {{!-- <link rel="stylesheet" href="css/bootstrap-datepicker.css"> --}}
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/nec.css">
     <style>
-        .search {
-            display: flex;
-            justify-content: center;
-            justify-items: center;
-            margin: 10px;
+        #dtDynamicVerticalScrollExample {
+            width: 100% !important;
+            margin: auto;
         }
 
-        .text {
-            border: black 1px solid;
-            padding: 7px;
-            border-radius: 10px;
+        .dataTables_scrollHeadInner,
+        .dataTables_scrollFootInner {
+            margin: auto;
+        }
+
+        .dataTables_info {
+            width: 22%;
+            position: relative;
+            right: 0;
+            float: right !important;
+
+        }
+
+        .dataTables_wrapper .dataTables_filter {
+            float: unset;
+            text-align: -webkit-center;
+            width: 24%;
+            margin: auto;
+        }
+
+        .dataTables_scroll {
+            width: 92%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .tbls {
+            margin-bottom: 7vh;
+        }
+
+        @media only screen and (max-width: 992px) {
+            .tbls {
+                overflow: scroll
+            }
+
+            .dataTables_scrollHead {
+                overflow: visible !important;
+            }
+
+            .dataTables_scrollBody {
+                width: 172% !important;
+                width: 233% !important;
+            }
+
+            .dataTables_scrollFoot {
+                overflow: visible !important;
+                margin: 0 !important;
+            }
+
+            .dataTables_scrollHead {
+                margin: 0
+            }
         }
     </style>
+    <script data-ad-client="ca-pub-5835447432382332" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 <body style="padding-top: 15vh;">
@@ -35,12 +102,12 @@
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                <li class="nav-item {{navItem1State}}"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item {{navItem1State}}"><a href="/" class="nav-link">Home</a></li>
                     <li class="nav-item {{navItem2State}}"><a href="tracker" class="nav-link">Live Tracker</a></li>
-                    <li class="nav-item active {{navItem3State}}"><a class="nav-link" href="graphs">Graphs</a></li>
-                    <li class="nav-item {{navItem4State}}"><a href="global" class="nav-link">Global</a></li>
+                    <li class="nav-item {{navItem3State}}"><a class="nav-link" href="graphs">Graphs</a></li>
+                    <li class="nav-item active {{navItem4State}}"><a href="global" class="nav-link">Global</a></li>
                     <li class="nav-item {{navItem5State}}"><a class="nav-link" href="prevention">Prevention</a></li>
-                    <li class="nav-item "><a href="future" class="nav-link">future</a></li>
+                    <li class="nav-item"><a href="future" class="nav-link">future</a></li>
                     <li class="nav-item "><a href="wiki" class="nav-link">Wiki</a></li>
                     <li class="nav-item {{navItem8State}}"><a href="news" class="nav-link">News</a></li>
 
@@ -49,158 +116,560 @@
             </div>
         </div>
     </nav>
-    {{!-- <div class="search"><input name="text" id="text" class="text" type="text" placeholder="Search Country.."></div> --}}
+    {{#if isRequestingCountry}}
+    {{#unless countryExists}}
+    <script>alert("No Country Found")</script>
+    {{/unless }}
 
-    <div class="cndiv"></div>
+    {{/if}}
+    <div class="tbls">
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <table id="dtDynamicVerticalScrollExample2" class="ndct table table-striped table-bordered table-sm"
+            cellspacing="0" width="100%">
+
+            <thead>
+                <tr>
+                    <th>Country</th>
+                    <th>Total Cases</th>
+                    <th>Active Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Cases/Million</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data}}
+                <tr>
+                    <td>{{this.countryName}}</td>
+                    <td class="text-info">{{this.totalCases}}</td>
+                    <td style="color: #9c27b0  ">{{this.activeCases}}</td>
+                    <td style="color: #9c27b0  ">{{this.newCases}}</td>
+                    <td class="text-danger">{{this.newDeaths}}</td>
+                    <td class="text-danger">{{this.totalDeaths}}</td>
+                    <td class="text-success">{{this.totalRecovered}} </td>
+                    <td class="text-warning">{{this.seriousCases}}</td>
+                    <td>{{this.casesPerM}}</td>
+                </tr>
+                {{/each}}
+            <tfoot>
+                <tr>
+                    <th>Country</th>
+                    <th>Total Cases</th>
+                    <th>Active Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Cases/Million</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Ad Set 1 -->
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5835447432382332" data-ad-slot="5654142318"
+        data-ad-format="auto" data-full-width-responsive="true"></ins>
     <script>
-        alert('This Page Will Take Some Time To Render And It\'ll Use More CPU/GPU To Load Graphs')
-        alert('If Graphs Is Not Being Displayed Properly Then Try Resizing Your Browser')
-        let body = document.getElementsByTagName("div")[4];
-        const makeid = (length) => {
-            var result = '';
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            var charactersLength = characters.length;
-            for (var i = 0; i < length; i++) {
-                result += characters.charAt(Math.floor(Math.random() * charactersLength));
-            }
-            return result;
-        }
-        const getData = (a) => {
-            fetch('/corona/graphData')
-                .then((rawData) => {
-                    return rawData.json()
-                })
-                .then((d) => {
-                    a(d)
-                })
-        }
+            (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <div class="tbls">
+        <table id="dtDynamicVerticalScrollExample" class="dct table table-striped table-bordered table-sm"
+            cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each usRegions}}
+                <tr>
+                    <td>{{this.country}}</td>
+                    <td class="text-info">{{this.cases}}</td>
+                    <td style="color: #9c27b0  ">{{this.todayCases}}</td>
+                    <td class="text-danger">{{this.todayDeaths}}</td>
+                    <td class="text-danger">{{this.deaths}}</td>
+                    <td class="text-success">{{this.recovered}} </td>
+                    <td class="text-warning">{{this.serious}}</td>
+                    <td class="text-warning">{{this.critical}}</td>
+                </tr>
 
-        const generateChart = (chartID, xData, i) => {
-            var ctx = document.getElementById(chartID).getContext('2d');
-            let z = xData
-            let a1 = []
-            let b1 = []
-            let c1 = []
-            let d1 = []
-            for (i = 0; i < z.length; i++) {
-                a1.push(z[i].date)
-                delete z[i].date
-                b1.push(z[i].confirmed)
-                delete z[i].confirmed
-                c1.push(z[i].recovered)
-                delete z[i].recovered
-                d1.push(z[i].deaths)
-                delete z[i].deaths
-            }
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total United States</th>
+                    <th class="text-info">{{usRegionsTotal.cases}}</th>
+                    <th style="color: #9c27b0  ">{{usRegionsTotal.todayCases}}</th>
+                    <th class="text-danger">{{usRegionsTotal.todayDeaths}}</th>
+                    <th class="text-danger">{{usRegionsTotal.deaths}}</th>
+                    <th class="text-success">{{usRegionsTotal.recovered}} </th>
+                    <th class="text-warning">{{usRegionsTotal.serious}}</th>
+                    <th class="text-warning">{{usRegionsTotal.critical}}</th>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <th> Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="tbls">
+        <table id="dtDynamicVerticalScrollExample3" class="dct table table-striped table-bordered table-sm"
+            cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each euRegions}}
+                <tr>
+                    <td>{{this.country}}</td>
+                    <td class="text-info">{{this.cases}}</td>
+                    <td style="color: #9c27b0  ">{{this.todayCases}}</td>
+                    <td class="text-danger">{{this.todayDeaths}}</td>
+                    <td class="text-danger">{{this.deaths}}</td>
+                    <td class="text-success">{{this.recovered}} </td>
+                    <td class="text-warning">{{this.serious}}</td>
+                    <td class="text-warning">{{this.critical}}</td>
+                </tr>
 
-            var chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: a1,
-                    datasets: [{
-                        label: 'Confirmed',
-                        backgroundColor: 'rgba(188,80,144,.3)',
-                        borderColor: 'rgba(255, 18, 158,.5)',
-                        fillOpacity: .3,
-                        data: b1
-                    }, {
-                        label: 'Recovered',
-                        backgroundColor: 'rgba(76,175,80,.3)',
-                        borderColor: 'rgba(48, 230, 56,.5)',
-                        fillOpacity: .3,
-                        data: c1
-                    }, {
-                        label: 'Deaths',
-                        backgroundColor: 'rgba(255,99,97,.3)',
-                        borderColor: 'rgba(255, 76, 74,.5)',
-                        data: d1,
-                        fillOpacity: .3
-                    }]
-                },
-                options: { maintainAspectRatio: false }
-            });
-        }
-        let cList
-        (async () => {
-            await getData(async (d) => {
-
-                var result = Object.keys(d).map(function (key) {
-                    return [Number(key), d[key]];
-                });
-                let countryNames = []
-                let cn = Object.keys(d).forEach((v, i, a) => {
-                    countryNames.push(v)
-                })
-                console.log(countryNames)
-                cList = countryNames
-                result.forEach((v, i, a) => {
-                    let chartID = 'chart' + i
-                    z = document.createElement("canvas")
-                    z.id = chartID
-                    z.width = "50%"
-                    z.height = "200px"
-                    cnm = document.createElement('h1')
-                    cnm.id = countryNames[i]
-                    cnm.innerHTML = countryNames[i]
-                    zx = document.createElement('div')
-                    zx.class = "canva-div"
-                    body.append(zx)
-                    zx.prepend(z)
-                    zx.prepend(cnm)
-                    generateChart(chartID, v[1], i)
-                })
-            })
-        })()
-
-        setTimeout(() => {
-            bss = document.getElementsByTagName('canvas')
-            for (i = 0; i < bss.length; i++) {
-                bss[i].style.height = "300px"
-                //bss[i].style.width = "90%"
-                let progress = document.getElementById('progressbar')
-                let totalHeight = document.body.scrollHeight - window.innerHeight
-                window.onscroll = () => {
-                    let progressHeight = (window.pageYOffset / totalHeight) * 100
-                    progress.style.height = progressHeight + '%'
-                }
-            }
-        }, 5000)
-        window.onload = () => {
-            let inpt = document.getElementById('text')
-            let h1 = document.getElementsByTagName('h1')
-            let cnvs = document.getElementsByClassName('cndiv')
-            let aln = cnvs[0].childNodes
-            console.log(cList)
-            inpt.addEventListener('keyup', (d) => {
-                console.log('called')
-                if (cList.includes(d.target.value)) {
-                    aln.forEach((v, k, p) => {
-                        aln.forEach((v) => { console.log(v.style.display = "none") })
-                    })
-                }
-            })
-        }
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total Europe</th>
+                    <th class="text-info">{{euRegionsTotal.cases}}</th>
+                    <th style="color: #9c27b0  ">{{euRegionsTotal.todayCases}}</th>
+                    <th class="text-danger">{{euRegionsTotal.todayDeaths}}</th>
+                    <th class="text-danger">{{euRegionsTotal.deaths}}</th>
+                    <th class="text-success">{{euRegionsTotal.recovered}} </th>
+                    <th class="text-warning">{{euRegionsTotal.serious}}</th>
+                    <th class="text-warning">{{euRegionsTotal.critical}}</th>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <th> Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Ad Set 2 -->
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5835447432382332" data-ad-slot="5270998939"
+        data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 
-</body>
+    <div class="tbls">
+        <table id="dtDynamicVerticalScrollExample4" class="dct table table-striped table-bordered table-sm"
+            cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each auRegions}}
+                <tr>
+                    <td>{{this.country}}</td>
+                    <td class="text-info">{{this.cases}}</td>
+                    <td style="color: #9c27b0  ">{{this.todayCases}}</td>
+                    <td class="text-danger">{{this.todayDeaths}}</td>
+                    <td class="text-danger">{{this.deaths}}</td>
+                    <td class="text-success">{{this.recovered}} </td>
+                    <td class="text-warning">{{this.serious}}</td>
+                    <td class="text-warning">{{this.critical}}</td>
+                </tr>
+
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total Australia</th>
+                    <th class="text-info">{{auRegionsTotal.cases}}</th>
+                    <th style="color: #9c27b0  ">{{auRegionsTotal.todayCases}}</th>
+                    <th class="text-danger">{{auRegionsTotal.todayDeaths}}</th>
+                    <th class="text-danger">{{auRegionsTotal.deaths}}</th>
+                    <th class="text-success">{{auRegionsTotal.recovered}} </th>
+                    <th class="text-warning">{{auRegionsTotal.serious}}</th>
+                    <th class="text-warning">{{auRegionsTotal.critical}}</th>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <th> Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="tbls">
+        <table id="dtDynamicVerticalScrollExample5" class="table dct table-striped table-bordered table-sm"
+            cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each laRegions}}
+                <tr>
+                    <td>{{this.country}}</td>
+                    <td class="text-info">{{this.cases}}</td>
+                    <td style="color: #9c27b0  ">{{this.todayCases}}</td>
+                    <td class="text-danger">{{this.todayDeaths}}</td>
+                    <td class="text-danger">{{this.deaths}}</td>
+                    <td class="text-success">{{this.recovered}} </td>
+                    <td class="text-warning">{{this.serious}}</td>
+                    <td class="text-warning">{{this.critical}}</td>
+                </tr>
+
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total Latin America</th>
+                    <th class="text-info">{{laRegionsTotal.cases}}</th>
+                    <th style="color: #9c27b0  ">{{laRegionsTotal.todayCases}}</th>
+                    <th class="text-danger">{{laRegionsTotal.todayDeaths}}</th>
+                    <th class="text-danger">{{laRegionsTotal.deaths}}</th>
+                    <th class="text-success">{{laRegionsTotal.recovered}} </th>
+                    <th class="text-warning">{{laRegionsTotal.serious}}</th>
+                    <th class="text-warning">{{laRegionsTotal.critical}}</th>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <th> Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="tbls">
+        <table id="dtDynamicVerticalScrollExample6" class="table dct table-striped table-bordered table-sm"
+            cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each caRegions}}
+                <tr>
+                    <td>{{this.country}}</td>
+                    <td class="text-info">{{this.cases}}</td>
+                    <td style="color: #9c27b0  ">{{this.todayCases}}</td>
+                    <td class="text-danger">{{this.todayDeaths}}</td>
+                    <td class="text-danger">{{this.deaths}}</td>
+                    <td class="text-success">{{this.recovered}} </td>
+                    <td class="text-warning">{{this.serious}}</td>
+                    <td class="text-warning">{{this.critical}}</td>
+                </tr>
+
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total Canada</th>
+                    <th class="text-info">{{caRegionsTotal.cases}}</th>
+                    <th style="color: #9c27b0  ">{{caRegionsTotal.todayCases}}</th>
+                    <th class="text-danger">{{caRegionsTotal.todayDeaths}}</th>
+                    <th class="text-danger">{{caRegionsTotal.deaths}}</th>
+                    <th class="text-success">{{caRegionsTotal.recovered}} </th>
+                    <th class="text-warning">{{caRegionsTotal.serious}}</th>
+                    <th class="text-warning">{{caRegionsTotal.critical}}</th>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <th> Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="tbls">
+        <table id="dtDynamicVerticalScrollExample6" class="table dct table-striped table-bordered table-sm"
+            cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each chRegions}}
+                <tr>
+                    <td>{{this.country}}</td>
+                    <td class="text-info">{{this.cases}}</td>
+                    <td style="color: #9c27b0  ">{{this.todayCases}}</td>
+                    <td class="text-danger">{{this.todayDeaths}}</td>
+                    <td class="text-danger">{{this.deaths}}</td>
+                    <td class="text-success">{{this.recovered}} </td>
+                    <td class="text-warning">{{this.serious}}</td>
+                    <td class="text-warning">{{this.critical}}</td>
+                </tr>
+
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total China</th>
+                    <th class="text-info">{{chRegionsTotal.cases}}</th>
+                    <th style="color: #9c27b0  ">{{chRegionsTotal.todayCases}}</th>
+                    <th class="text-danger">{{chRegionsTotal.todayDeaths}}</th>
+                    <th class="text-danger">{{chRegionsTotal.deaths}}</th>
+                    <th class="text-success">{{chRegionsTotal.recovered}} </th>
+                    <th class="text-warning">{{chRegionsTotal.serious}}</th>
+                    <th class="text-warning">{{chRegionsTotal.critical}}</th>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <th> Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="tbls">
+        <table id="dtDynamicVerticalScrollExample6" class="table dct table-striped table-bordered table-sm"
+            cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each afRegions}}
+                <tr>
+                    <td>{{this.country}}</td>
+                    <td class="text-info">{{this.cases}}</td>
+                    <td style="color: #9c27b0  ">{{this.todayCases}}</td>
+                    <td class="text-danger">{{this.todayDeaths}}</td>
+                    <td class="text-danger">{{this.deaths}}</td>
+                    <td class="text-success">{{this.recovered}} </td>
+                    <td class="text-warning">{{this.serious}}</td>
+                    <td class="text-warning">{{this.critical}}</td>
+                </tr>
+
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total Africa</th>
+                    <th class="text-info">{{afRegionsTotal.cases}}</th>
+                    <th style="color: #9c27b0  ">{{afRegionsTotal.todayCases}}</th>
+                    <th class="text-danger">{{afRegionsTotal.todayDeaths}}</th>
+                    <th class="text-danger">{{afRegionsTotal.deaths}}</th>
+                    <th class="text-success">{{afRegionsTotal.recovered}} </th>
+                    <th class="text-warning">{{afRegionsTotal.serious}}</th>
+                    <th class="text-warning">{{afRegionsTotal.critical}}</th>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <th> Cases</th>
+                    <th>New Cases</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>Total Recovered </th>
+                    <th>Serious Cases</th>
+                    <th>Critical</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 
 
-<footer class="ftco-footer ftco-bg-dark ftco-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <p>
-                    Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This website is
-                    developed with
-                    ❤ by <a href="https://t.me/anikethirpara" target="_blank">Team Codershub</a>
-                </p>
+    <!-- END nav -->
+
+    <section>
+    </section>
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This website is
+                        developed with
+                        ❤ by <a href="https://t.me/anikethirpara" target="_blank">Team Codershub</a>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
+
+
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00" /></svg></div>
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/parallax.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        window.onload = () => {
+            let progress = document.getElementById('progressbar')
+            let totalHeight = document.body.scrollHeight - window.innerHeight
+            window.onscroll = () => {
+                let progressHeight = (window.pageYOffset / totalHeight) * 100
+                progress.style.height = progressHeight + '%'
+            }
+            if (window.innerWidth <= 993) {
+                document.getElementsByTagName("body")[0].style.padding = 0
+            }
+        }
+
+    </script>
+    <script src='//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
+    <script>
+
+
+
+        $(document).ready(function () {
+            let nSet = {
+                responsive: {
+                    details: false
+                },
+                data: null,
+                "scrollY": "75vh",
+                "scrollCollapse": true,
+                "language": {
+                    "search": "&#128269;",
+                    "searchPlaceholder": "search data"
+                },
+                "autoWidth": true,
+                "bInfo": false,
+                "bPaginate": false
+            }
+
+
+            $(".ndct").DataTable(nSet)
+            $('.dct').DataTable(nSet);
+            $('.dataTables_length').addClass('bs-select');
+            $("table").css({ "width": "93% !important", "margin": "auto !important" })
+            $(".dataTables_filter")[0].prepend('GLOBAL')
+            let dCount = $(".dataTables_filter")
+            let dCountries = ['GLOBAL', 'USA', 'EUROPE', 'AUSTRALIA', 'LATIN AMERICA', 'CANADA', 'CHINA', 'AFRICA']
+            for (i = 1; i < dCount.length; i++) {
+
+                $(".dataTables_filter")[i].prepend(dCountries[i])
+            }
+            if (window.innerWidth < 992) {
+                var tBodyEle = document.getElementsByClassName("dataTables_scrollBody");
+                var tHeadInnr = document.getElementsByClassName("dataTables_scrollHeadInner");
+                for (i = 0; i < tBodyEle.length; i++) {
+                    style = window.getComputedStyle(tHeadInnr[i]);
+                    wdt = style.getPropertyValue('width');
+                    tBodyEle[i].style.width = wdt + ' !important';
+                    tBodyEle[i].style.setProperty("width", wdt, "important");
+                }
+            }
+        });
+    </script>
   <script>
 
        window.onload = ()=>{
@@ -209,5 +678,6 @@
             }
        }
     </script>
+</body>
 
 </html>
