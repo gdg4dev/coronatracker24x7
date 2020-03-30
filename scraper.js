@@ -7,11 +7,11 @@ console.log("Scraper scheduled.");
 stats.fetchAllData();
 
 //Fetch data three minutes.
-cron.schedule("*/10 * * * *", () => {
-    try {
-        console.log("Fetching data.");
-        stats.fetchAllData();
-    } catch (error) {
-        console.error(error)
-    }
-});
+// cron.schedule("*/10 * * * *", () => {
+// try {
+//     console.log("Fetching data.");
+//     stats.fetchAllData();
+// } catch (error) {
+//     console.error(error)
+// }
+// });

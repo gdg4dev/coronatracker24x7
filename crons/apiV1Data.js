@@ -6,12 +6,12 @@ const downloadOptions = {
 };
 const url = "http://static.dwcdn.net/data/NcpLC.csv";
 (() => {
-    cron.schedule('*/15 * * * *', () => {
-        download(url, downloadOptions, (err) => {
-            if (err) {
-                console.log(err)
-            }
-            console.log("downloaded api1data");
-        });
-    })
+    // cron.schedule('*/15 * * * *', () => {
+    download(url, downloadOptions, (err) => {
+        if (err) {
+            console.log(err)
+        }
+        console.log("downloaded api1data");
+    });
+    // })
 })();
